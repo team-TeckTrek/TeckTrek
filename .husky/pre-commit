@@ -1,9 +1,4 @@
-#!/bin/sh
-# Load fnm environment if available
-if [ -f "$HOME/.zshrc" ]; then
-  . "$HOME/.zshrc"
-fi
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-# Run lint and format
-npm run lint
-npm run format
+npx lint-staged
