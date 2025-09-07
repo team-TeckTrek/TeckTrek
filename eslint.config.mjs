@@ -11,7 +11,7 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
+  ...compat.extends('next/core-web-vitals', 'prettier'), 
   {
     plugins: {
       'unused-imports': unusedImports,
@@ -20,7 +20,7 @@ const eslintConfig = [
       'no-unused-vars': 'off',
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': [
-        'warn',
+        'error', 
         {
           vars: 'all',
           varsIgnorePattern: '^_',
