@@ -6,10 +6,17 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write .",
     "prepare": "husky",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "npm run lint:script && npm run lint:style && npm run prettier:check",
+    "lint:script": "tsc --noEmit && eslint .",
+    "lint:script:fix": "eslint . --fix",
+    "lint:style": "stylelint \"**/*.css\"",
+    "lint:style:fix": "stylelint \"**/*.css\" --fix",
+    "prettier": "prettier \"./**/*.{ts,tsx,css}\"",
+    "prettier:check": "npm run prettier -- --check",
+    "prettier:write": "npm run prettier -- --write",
+    "format": "npm run prettier:write"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
