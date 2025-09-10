@@ -1,5 +1,6 @@
+import { data } from '@/components/sample/data'
+import { Sample } from '@/components/sample/sample'
+
 export default function Home() {
-  return (
-    <div className="text-xl font-bold flex items-center justify-center pt-10"></div>
-  )
+  return <Sample title={data} />
 }
