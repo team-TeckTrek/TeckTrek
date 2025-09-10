@@ -1,17 +1,17 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
-import unusedImports from 'eslint-plugin-unused-imports';
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import { FlatCompat } from '@eslint/eslintrc'
+import unusedImports from 'eslint-plugin-unused-imports'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
-});
+})
 
 const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'prettier'), 
+  ...compat.extends('next/core-web-vitals', 'prettier'),
   {
     plugins: {
       'unused-imports': unusedImports,
@@ -19,8 +19,9 @@ const eslintConfig = [
     rules: {
       'no-unused-vars': 'off',
       'unused-imports/no-unused-imports': 'error',
+      semi: ['error', 'never'],
       'unused-imports/no-unused-vars': [
-        'error', 
+        'error',
         {
           vars: 'all',
           varsIgnorePattern: '^_',
@@ -30,6 +31,6 @@ const eslintConfig = [
       ],
     },
   },
-];
+]
 
-export default eslintConfig;
+export default eslintConfig

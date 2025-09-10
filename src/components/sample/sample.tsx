@@ -1,7 +1,7 @@
 interface Props {
-  title: string;
+  title: string
 }
 
 export function Sample({ title }: Props) {
-  return <div>{title}</div>;
+  return <div>{title}</div>
 }

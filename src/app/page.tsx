@@ -3,5 +3,5 @@ export default function Home() {
     <div className="text-xl font-bold flex items-center justify-center pt-10">
       hello world
     </div>
-  );
+  )
 }
