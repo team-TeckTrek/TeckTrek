@@ -6,9 +6,17 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "typecheck": "tsc --noEmit",
+    "lint": "npm run lint:script && npm run lint:style && npm run prettier:check",
+    "lint:script": "tsc --noEmit && eslint .",
+    "lint:script:fix": "eslint . --fix",
+    "lint:style": "stylelint \"**/*.css\"",
+    "lint:style:fix": "stylelint \"**/*.css\" --fix",
+    "prettier": "prettier \"./**/*.{ts,tsx,css}\"",
+    "prettier:check": "npm run prettier -- --check",
+    "prettier:write": "npm run prettier -- --write",
+    "format": "npm run prettier:write"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
@@ -25,7 +33,7 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.12",
     "@types/node": "^20",
-    "@types/react": "^19",
+    "@types/react": "^19.1.12",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
@@ -33,9 +41,19 @@
     "eslint-plugin-prettier": "^5.5.3",
     "eslint-plugin-unused-imports": "^4.1.4",
     "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
     "prettier": "^3.6.2",
+    "stylelint": "^16.24.0",
+    "stylelint-config-standard": "^39.0.0",
     "tailwindcss": "^4.1.12",
     "tw-animate-css": "^1.3.7",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.css": "stylelint --fix"
   }
 }
