@@ -1,3 +1,5 @@
+// pages/index.tsx
+
 import NoticeList from "@/components/NoticeList";
 
 export default function Home() {
