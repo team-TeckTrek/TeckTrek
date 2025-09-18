@@ -1,25 +1,31 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"; // shadcn/uiのDialog
+import React, { useState } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog'; // shadcn/uiのDialog
 // ↑ shadcn/uiのDialogを使う場合、`npx shadcn-ui@latest add dialog` で導入してください
 
 // 0. 静的データ
 const notices = [
   {
-    id: "1",
-    date: "2025.8.15",
-    body: "コンテンツの詳細についてのお知らせです。これは30文字を超える長いお知らせの例です。",
+    id: '1',
+    date: '2025.8.15',
+    body: 'コンテンツの詳細についてのお知らせです。これは30文字を超える長いお知らせの例です。',
   },
   {
-    id: "2",
-    date: "2025.8.9",
-    body: "メンテナンスのお知らせです。",
+    id: '2',
+    date: '2025.8.9',
+    body: 'メンテナンスのお知らせです。',
   },
   {
-    id: "3",
-    date: "2025.8.1",
-    body: "アプリをリリースしました。",
+    id: '3',
+    date: '2025.8.1',
+    body: 'アプリをリリースしました。',
   },
 ];
 
@@ -29,7 +35,7 @@ const MAX_LENGTH = 30;
 // 5. 省略関数
 function truncateBody(body: string, maxLength = MAX_LENGTH) {
   if (body.length <= maxLength) return body;
-  return body.slice(0, maxLength) + "…";
+  return body.slice(0, maxLength) + '…';
 }
 
 export default function NoticeList() {

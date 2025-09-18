@@ -1,4 +1,4 @@
-import NoticeList from "@/components/NoticeList";
+import NoticeList from '@/components/NoticeList';
 
 export default function Home() {
   return (
