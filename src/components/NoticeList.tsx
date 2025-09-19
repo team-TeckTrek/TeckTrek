@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from '@/components/ui/dialog'; // shadcn/uiのDialog
+} from '@/components/ui-kit/dialog'; // shadcn/uiのDialog
 // ↑ shadcn/uiのDialogを使う場合、`npx shadcn-ui@latest add dialog` で導入してください
 
 // 0. 静的データ
