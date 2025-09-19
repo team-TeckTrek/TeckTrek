@@ -38,7 +38,7 @@ export default function NoticeList() {
 
   // 1. タイトル
   return (
-    <section className="bg-white rounded-lg shadow p-4 w-full max-w-md mx-auto">
+    <section className="bg-white rounded-lg shadow p-6 w-full max-w-2xl mx-auto mt-120">
       <h2 className="text-lg font-bold mb-2">お知らせ</h2>
       <ul>
         {notices.slice(0, 3).map((notice) => {
@@ -66,8 +66,12 @@ export default function NoticeList() {
           );
         })}
       </ul>
-  {/* 6. モーダル */}
-  <NoticeDialog open={modalBody !== null} body={modalBody} onClose={() => setModalBody(null)} />
+      {/* 6. モーダル */}
+      <NoticeDialog
+        open={modalBody !== null}
+        body={modalBody}
+        onClose={() => setModalBody(null)}
+      />
     </section>
   );
 }
