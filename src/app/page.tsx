@@ -1,5 +1,5 @@
-import NoticeList from '@/components/NoticeList';
-import CurrentDate from '../components/ui-kit/CurrentDate';
+import NoticeList from '@/components/notification/NoticeList';
+import CurrentDate from '../components/notification/CurrentDate';
 
 export default function Page() {
   return (
