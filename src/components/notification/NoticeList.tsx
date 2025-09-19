@@ -1,13 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/notification/dialog'; // shadcn/uiのDialog
+import NoticeDialog from '@/components/notification/NoticeDialog';
 // ↑ shadcn/uiのDialogを使う場合、`npx shadcn-ui@latest add dialog` で導入してください
 
 // 0. 静的データ
@@ -72,15 +66,8 @@ export default function NoticeList() {
           );
         })}
       </ul>
-      {/* 6. モーダル */}
-      <Dialog open={modalBody !== null} onOpenChange={() => setModalBody(null)}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>お知らせ全文</DialogTitle>
-            <DialogDescription>{modalBody}</DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+  {/* 6. モーダル */}
+  <NoticeDialog open={modalBody !== null} body={modalBody} onClose={() => setModalBody(null)} />
     </section>
   );
 }
