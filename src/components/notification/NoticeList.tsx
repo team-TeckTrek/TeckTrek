@@ -1,5 +1,8 @@
+"use client";
+
 import React, { useState } from 'react';
-import NoticeDialog from '@/components/notification/NoticeDialog';
+import NoticeDialog from './NoticeDialog';
+
 
 type Notice = {
   id: string;
