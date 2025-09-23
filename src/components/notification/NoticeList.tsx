@@ -3,15 +3,14 @@
 import React, { useState } from 'react';
 import NoticeDialog from './NoticeDialog';
 
-
-type Notice = {
+export type Notice = {
   id: string;
   date: string;
   body: string;
 };
 
 interface NoticeListProps {
-  notices: Notice[];
+  notices?: Notice[];
 }
 
 const MAX_LENGTH = 30;
@@ -22,11 +21,13 @@ function truncateBody(body: string, maxLength = MAX_LENGTH) {
 
 const NoticeList: React.FC<NoticeListProps> = ({ notices }) => {
   const [modalBody, setModalBody] = useState<string | null>(null);
+  const list = Array.isArray(notices) ? notices : [];
+
   return (
     <section className="bg-white rounded-lg shadow p-6 w-full max-w-2xl mx-auto mt-120">
       <h2 className="text-lg font-bold mb-2">お知らせ</h2>
       <ul>
-        {notices.map((notice) => {
+        {list.map((notice) => {
           const isLong = notice.body.length > MAX_LENGTH;
           return (
             <li
