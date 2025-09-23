@@ -1,56 +1,36 @@
-'use client';
-
 import React, { useState } from 'react';
 import NoticeDialog from '@/components/notification/NoticeDialog';
-// ↑ shadcn/uiのDialogを使う場合、`npx shadcn-ui@latest add dialog` で導入してください
 
-// 0. 静的データ
-const notices = [
-  {
-    id: '1',
-    date: '2025.8.15',
-    body: 'コンテンツの詳細についてのお知らせです。これは30文字を超える長いお知らせの例です。',
-  },
-  {
-    id: '2',
-    date: '2025.8.9',
-    body: 'メンテナンスのお知らせです。',
-  },
-  {
-    id: '3',
-    date: '2025.8.1',
-    body: 'アプリをリリースしました。',
-  },
-];
+type Notice = {
+  id: string;
+  date: string;
+  body: string;
+};
 
-// 4. 最大文字数
+interface NoticeListProps {
+  notices: Notice[];
+}
+
 const MAX_LENGTH = 30;
-
-// 5. 省略関数
 function truncateBody(body: string, maxLength = MAX_LENGTH) {
   if (body.length <= maxLength) return body;
   return body.slice(0, maxLength) + '…';
 }
 
-export default function NoticeList() {
-  // 6. モーダル制御
+const NoticeList: React.FC<NoticeListProps> = ({ notices }) => {
   const [modalBody, setModalBody] = useState<string | null>(null);
-
-  // 1. タイトル
   return (
     <section className="bg-white rounded-lg shadow p-6 w-full max-w-2xl mx-auto mt-120">
       <h2 className="text-lg font-bold mb-2">お知らせ</h2>
       <ul>
-        {notices.slice(0, 3).map((notice) => {
+        {notices.map((notice) => {
           const isLong = notice.body.length > MAX_LENGTH;
           return (
             <li
               key={notice.id}
               className="flex items-start py-2 border-b last:border-b-0"
             >
-              {/* 2. 日付 */}
               <span className="w-24 text-gray-500 shrink-0">{notice.date}</span>
-              {/* 3,4,5,6. 内容・省略・モーダル */}
               {isLong ? (
                 <button
                   className="ml-2 text-blue-600 underline"
@@ -66,7 +46,6 @@ export default function NoticeList() {
           );
         })}
       </ul>
-      {/* 6. モーダル */}
       <NoticeDialog
         open={modalBody !== null}
         body={modalBody}
@@ -74,4 +53,6 @@ export default function NoticeList() {
       />
     </section>
   );
-}
+};
+
+export default NoticeList;
