@@ -23,7 +23,7 @@ export default function UserCreateModalContent({
 }: Props) {
   const [name, setName] = useState('')
   const [icon, setIcon] = useState<number | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false) // ← 処理中フラグ（ボタン無効化だけに使う）
 
   const icons = ['🐱', '🐶', '🐰', '🦊', '🐼', '🐻', '🐨', '🐯']
   const validName = name.trim().length >= 1 && name.trim().length <= 12
@@ -46,6 +46,7 @@ export default function UserCreateModalContent({
         <DialogTitle>ユーザー作成</DialogTitle>
       </DialogHeader>
 
+      {/* アイコン選択 */}
       <div className="mt-2 grid grid-cols-4 gap-4">
         {icons.map((emj, i) => {
           const checked = icon === i
@@ -65,6 +66,7 @@ export default function UserCreateModalContent({
         })}
       </div>
 
+      {/* 名前入力 */}
       <div className="mt-4 space-y-1.5">
         <Label htmlFor="username">ユーザーネーム（1〜12文字）</Label>
         <Input
@@ -80,15 +82,12 @@ export default function UserCreateModalContent({
         )}
       </div>
 
+      {/* 操作 */}
       <div className="mt-6 flex justify-end gap-3">
-        <Button variant="outline" onClick={onClose}>
+        <Button variant="outline" onClick={onClose} disabled={loading}>
           キャンセル
         </Button>
-        <Button
-          onClick={handleConfirm}
-          disabled={!valid || loading}
-          isLoading={loading}
-        >
+        <Button onClick={handleConfirm} disabled={!valid || loading}>
           決定（{mode === 'random' ? 'ランダム' : '友達'}）
         </Button>
       </div>
