@@ -9,19 +9,20 @@ import {
 
 interface NoticeDialogProps {
   open: boolean;
-  body: string | null;
+  title: string;
+  content: string;
   onClose: () => void;
 }
 
-const NoticeDialog: React.FC<NoticeDialogProps> = ({ open, body, onClose }) => (
-  <Dialog open={open} onOpenChange={onClose}>
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>お知らせ全文</DialogTitle>
-        <DialogDescription>{body}</DialogDescription>
-      </DialogHeader>
-    </DialogContent>
-  </Dialog>
-);
-
-export default NoticeDialog;
+export default function NoticeDialog({ open, title, content, onClose }: NoticeDialogProps) {
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{title || 'お知らせ'}</DialogTitle>
+          <DialogDescription>{content}</DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
+}
