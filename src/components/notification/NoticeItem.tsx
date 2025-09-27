@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from 'react';
 import { Notice, DEFAULT_TITLE_MAX } from './types';
@@ -11,7 +11,10 @@ interface Props {
 
 export default function NoticeItem({ notice, onOpen }: Props) {
   const title = notice.title || '';
-  const shortTitle = title.length > DEFAULT_TITLE_MAX ? title.slice(0, DEFAULT_TITLE_MAX) + '…' : title;
+  const shortTitle =
+    title.length > DEFAULT_TITLE_MAX
+      ? title.slice(0, DEFAULT_TITLE_MAX) + '…'
+      : title;
 
   return (
     <li className="flex items-start py-2 border-b last:border-b-0">

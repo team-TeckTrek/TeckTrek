@@ -28,7 +28,11 @@ export default function NoticeList({ notices }: NoticeListProps) {
       ) : (
         <ul>
           {list.map((notice) => (
-            <NoticeItem key={notice.id} notice={notice} onOpen={(n) => setModalData(n)} />
+            <NoticeItem
+              key={notice.id}
+              notice={notice}
+              onOpen={(n) => setModalData(n)}
+            />
           ))}
         </ul>
       )}

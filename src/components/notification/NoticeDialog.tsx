@@ -14,7 +14,12 @@ interface NoticeDialogProps {
   onClose: () => void;
 }
 
-export default function NoticeDialog({ open, title, content, onClose }: NoticeDialogProps) {
+export default function NoticeDialog({
+  open,
+  title,
+  content,
+  onClose,
+}: NoticeDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
