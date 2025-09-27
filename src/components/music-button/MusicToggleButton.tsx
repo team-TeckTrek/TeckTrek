@@ -1,13 +1,9 @@
-'use client' //onClickとuseEffectを使うので必要
+'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 
-type Props = {
-  className?: string
-}
-
-export default function MusicToggleButton({ className = '' }: Props) {
+export default function MusicToggleButton() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [isMuted, setIsMuted] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -22,15 +18,12 @@ export default function MusicToggleButton({ className = '' }: Props) {
 
   const toggleMute = () => {
     if (!audioRef.current) return
-
-    //初回クリックで再生開始する処理(chromeとsafariの仕様で自動再生が禁止されているため)
     if (!isPlaying) {
       audioRef.current.play().catch((err) => {
         console.log('再生エラー:', err)
       })
       setIsPlaying(true)
     }
-
     audioRef.current.muted = !isMuted
     setIsMuted(!isMuted)
   }
@@ -38,14 +31,16 @@ export default function MusicToggleButton({ className = '' }: Props) {
   return (
     <button
       onClick={toggleMute}
-      className={`rounded-full p-0 shadow-md hover:scale-110 transition text-[#352107] ${className}`}
+      className="fixed bottom-6 right-6 z-50 rounded-full p-0 shadow-md hover:scale-110 transition text-[#352107] bg-white"
+      aria-pressed={isMuted}
+      aria-label={isMuted ? '音楽オフ' : '音楽オン'}
     >
       <Image
         src={isMuted ? '/icons/music-off.svg' : '/icons/music-on.svg'}
         alt={isMuted ? 'music off' : 'music on'}
         width={48}
         height={48}
-        priority={true}
+        priority
       />
     </button>
   )

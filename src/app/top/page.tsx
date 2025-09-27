@@ -3,22 +3,27 @@ import Image from 'next/image'
 
 export default function TopPage() {
   return (
-    <main className="h-screen flex items-center justify-center relative">
+    <main className="h-screen flex flex-col relative">
+      {/* todo: dummy画像のため素材到着後差し替え */}
       <Image
         src="/image/back-image.png"
         alt="背景のストライプ"
         fill
         priority
-        sizes="100vw"
+        sizes="1920px"
         className="object-cover -z-10"
       />
-      <h1 className="absolute top-1/7 left-1/2 -translate-x-1/2 text-[5vw] font-bold text-[#352107] text-center leading-relaxed">
-        <span className="block">Teck Trek</span>
-        <span className="block">絵しりとり</span>
-      </h1>
 
-      {/* 🎵 ミュート切替ボタン */}
-      <MusicToggleButton className="fixed bottom-[5%] right-[5%]" />
+      <div className="flex-1 flex items-start justify-center">
+        <div className="flex flex-col items-center gap-2 mt-[10vh] pb-[50px]">
+          <h1 className="text-[90px] font-medium text-[#352107] text-center leading-relaxed">
+            <span className="block">Teck Trek</span>
+            <span className="block">絵しりとり</span>
+          </h1>
+        </div>
+      </div>
+
+      <MusicToggleButton />
     </main>
   )
 }
