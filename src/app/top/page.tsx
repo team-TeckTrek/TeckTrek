@@ -15,7 +15,7 @@ export default function TopPage() {
       />
 
       <div className="flex-1 flex items-start justify-center">
-        <div className="flex flex-col items-center gap-2 mt-[10vh] pb-[50px]">
+        <div className="flex flex-col items-center gap-2 mt-[80px] pb-[50px]">
           <h1 className="text-[90px] font-medium text-[#352107] text-center leading-relaxed">
             <span className="block">Teck Trek</span>
             <span className="block">絵しりとり</span>
