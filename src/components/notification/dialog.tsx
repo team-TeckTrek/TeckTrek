@@ -3,10 +3,7 @@
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 
-// 必要なら下記のユーティリティ関数も作成
-function cn(...args: Array<string | undefined | null | false>): string {
-  return args.filter(Boolean).join(' ');
-}
+import { cn } from '@/lib/utils';
 
 const Dialog = DialogPrimitive.Root;
 const DialogTrigger = DialogPrimitive.Trigger;
