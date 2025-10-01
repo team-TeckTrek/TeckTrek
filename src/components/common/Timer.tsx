@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { startCountdown } from './helper'
 import { cn } from '@/lib/utils'
-import { useNotifyTimeUp } from '../../hooks/useNotifyTimeUp'
+import { useOnTimeUp } from '../../hooks/useNotifyTimeUp'
 
 interface Props {
   time: number
@@ -26,7 +26,7 @@ export default function Timer({ time, className, onTimeUp }: Props) {
   }, [count])
 
   const timeUp = count <= 0
-  const { reset } = useNotifyTimeUp(timeUp, onTimeUp)
+  const { reset } = useOnTimeUp(timeUp, onTimeUp)
 
   useEffect(() => {
     reset()

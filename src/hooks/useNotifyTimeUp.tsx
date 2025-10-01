@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export function useNotifyTimeUp(
+export function useOnTimeUp(
   timeUp: boolean,
   onTimeUp?: (timeUp: boolean) => void,
 ) {
