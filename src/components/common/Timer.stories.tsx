@@ -6,6 +6,7 @@ const meta = {
   component: TimeCounter,
   parameters: {},
 } satisfies Meta<typeof TimeCounter>
+
 export default meta
 type Story = StoryObj<typeof meta>
 
