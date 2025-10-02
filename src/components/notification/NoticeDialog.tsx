@@ -5,7 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from '@/components/notification/dialog';
+} from '@/components/ui/dialog';
 
 interface NoticeDialogProps {
   open: boolean;
