@@ -23,4 +23,3 @@ export const DEFAULT_NOTICES = [
       'Teck Trek 絵しりとりアプリの正式リリースをお知らせします。ぜひ遊んでみてください。',
   },
 ] satisfies Notice[];
-

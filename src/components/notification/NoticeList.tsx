@@ -27,17 +27,13 @@ export default function NoticeList({ notices }: NoticeListProps) {
   }, []);
 
   return (
-    <section className="mx-auto mt-6 w-full max-w-[560px] text-[#5B3A18]">
+    <section className="mt-6 w-full text-[#5B3A18]">
       <h2 className="mb-4 text-lg font-bold">お知らせ</h2>
 
       {hasNotices ? (
         <ul>
           {list.map((notice) => (
-            <NoticeItem
-              key={notice.id}
-              notice={notice}
-              onOpen={handleOpen}
-            />
+            <NoticeItem key={notice.id} notice={notice} onOpen={handleOpen} />
           ))}
         </ul>
       ) : (
