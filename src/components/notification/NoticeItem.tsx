@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Notice, DEFAULT_TITLE_MAX } from './types';
-import { Button } from './button';
 
 interface Props {
   notice: Notice;
@@ -17,13 +16,15 @@ export default function NoticeItem({ notice, onOpen }: Props) {
       : title;
 
   return (
-    <li className="flex items-start py-2 border-b last:border-b-0">
-      <span className="w-24 text-gray-500 shrink-0">{notice.date}</span>
-      <div className="ml-2">
-        <Button variant="ghost" size="default" onClick={() => onOpen(notice)}>
-          <span className="whitespace-nowrap">{shortTitle}</span>
-        </Button>
-      </div>
+    <li className="flex items-baseline gap-6 border-b border-[#5B3A18] py-2 text-base last:border-b-0">
+      <span className="w-32 shrink-0 text-[#5B3A18]">{notice.date}</span>
+      <button
+        type="button"
+        onClick={() => onOpen(notice)}
+        className="flex-1 text-left text-[#5B3A18] focus:outline-none focus-visible:underline"
+      >
+        {shortTitle}
+      </button>
     </li>
   );
 }

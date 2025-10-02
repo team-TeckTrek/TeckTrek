@@ -20,11 +20,11 @@ export default function NoticeList({ notices }: NoticeListProps) {
   }, [notices]);
 
   return (
-    <section className="bg-white rounded-lg shadow p-6 w-full max-w-2xl mx-auto mt-8">
-      <h2 className="text-lg font-bold mb-2">お知らせ</h2>
+    <section className="mx-auto mt-6 w-full max-w-[560px] text-[#5B3A18]">
+      <h2 className="mb-4 text-lg font-bold">お知らせ</h2>
 
       {list.length === 0 ? (
-        <div className="text-sm text-gray-500">お知らせはありません</div>
+        <div className="text-sm text-[#5B3A18]">お知らせはありません</div>
       ) : (
         <ul>
           {list.map((notice) => (

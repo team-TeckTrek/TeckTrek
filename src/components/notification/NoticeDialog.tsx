@@ -22,10 +22,14 @@ export default function NoticeDialog({
 }: NoticeDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{title || 'お知らせ'}</DialogTitle>
-          <DialogDescription>{content}</DialogDescription>
+      <DialogContent className="rounded-[32px] border border-[#E9D9C7] bg-[#FFF6EB] px-8 py-7 text-[#5E3E2E] shadow-[0_16px_0_#D6B99E]">
+        <DialogHeader className="gap-3 text-center">
+          <DialogTitle className="text-xl font-semibold tracking-[0.1em] text-[#5E3E2E]">
+            {title || 'お知らせ'}
+          </DialogTitle>
+          <DialogDescription className="text-sm leading-7 text-[#5E3E2E]">
+            {content}
+          </DialogDescription>
         </DialogHeader>
       </DialogContent>
     </Dialog>
