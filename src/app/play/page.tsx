@@ -1,4 +1,5 @@
 import Sample from '@/components/demo/sample'
+import CardCounter from '@/components/play/CardCounter'
 
 export default function Page() {
   return (
@@ -15,8 +16,8 @@ export default function Page() {
         </div>
       </div>
       <div className="flex flex-col gap-2 flex-[183] min-w-[183px]">
-        <div className="bg-neutral-200 flex-1 flex">
-          <Sample title="タイム、退室" />
+        <div className="bg-neutral-200 flex-1 flex items-center justify-center">
+          <CardCounter current={1} total={12} />
         </div>
         <div className="bg-neutral-200 flex-1 flex">
           <Sample title="プレイヤーアイコン" />
