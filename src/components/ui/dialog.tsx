@@ -37,7 +37,7 @@ function DialogOverlay({
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-[#D9D9D9]/60 backdrop-blur-[1px]',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/40',
         className,
       )}
       {...props}
@@ -59,7 +59,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-50 grid w-[560px] max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-6 rounded-[36px] border border-[#DBD6CC] bg-white px-12 py-10 text-[#5B3A18] shadow-[0_24px_40px_rgba(0,0,0,0.12)] duration-200',
+          'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 space-y-4 rounded-2xl bg-white p-6 text-[#5B3A18] shadow-xl duration-200',
           className,
         )}
         {...props}
@@ -92,10 +92,7 @@ function DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="dialog-footer"
-      className={cn(
-        'mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center',
-        className,
-      )}
+      className={cn('mt-4 flex flex-col gap-2 sm:flex-row sm:justify-end', className)}
       {...props}
     />
   );
@@ -108,7 +105,10 @@ function DialogTitle({
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn('text-[26px] font-bold leading-tight tracking-[0.08em]', className)}
+      className={cn(
+        'text-[24px] font-bold tracking-[0.08em] text-[#5B3A18]',
+        className,
+      )}
       {...props}
     />
   );
@@ -121,7 +121,7 @@ function DialogDescription({
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn('text-base leading-8 text-[#5B3A18]', className)}
+      className={cn('text-base leading-[1.9] text-[#5B3A18]', className)}
       {...props}
     />
   );

@@ -40,7 +40,11 @@ export default function NoticeList({ notices }: NoticeListProps) {
         <div className="text-sm text-[#5B3A18]">お知らせはありません</div>
       )}
 
-      <NoticeDialog open={modalData !== null} notice={modalData} onClose={handleClose} />
+      <NoticeDialog
+        open={modalData !== null}
+        notice={modalData}
+        onClose={handleClose}
+      />
     </section>
   );
 }

@@ -8,7 +8,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import type { Notice } from './types';
 
 interface NoticeDialogProps {
@@ -17,7 +16,11 @@ interface NoticeDialogProps {
   onClose: () => void;
 }
 
-export default function NoticeDialog({ open, notice, onClose }: NoticeDialogProps) {
+export default function NoticeDialog({
+  open,
+  notice,
+  onClose,
+}: NoticeDialogProps) {
   const handleOpenChange = useCallback(
     (nextOpen: boolean) => {
       if (!nextOpen) {
@@ -34,28 +37,24 @@ export default function NoticeDialog({ open, notice, onClose }: NoticeDialogProp
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent>
-        <DialogHeader className="gap-6">
-          <div className="flex items-start justify-between">
-            <DialogTitle>{title}</DialogTitle>
+        <DialogHeader className="gap-3">
+          <div className="flex items-start justify-between gap-3">
+            <DialogTitle className="text-base font-semibold text-[#5B3A18]">
+              {title}
+            </DialogTitle>
             {date ? (
-              <span className="text-base font-medium text-[#5B3A18]">{date}</span>
+              <span className="pt-0.5 text-sm text-[#5B3A18]">
+                {date}
+              </span>
             ) : null}
           </div>
-          <DialogDescription className="whitespace-pre-line">
+          <DialogDescription className="whitespace-pre-line text-sm text-[#5B3A18]">
             {content || 'お知らせの内容がここに表示されます。'}
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="mt-10">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={onClose}
-            className={cn(
-              'rounded-full border-2 border-[#3E72FF] bg-white px-12 py-3 text-base font-semibold text-[#3E72FF]',
-              'shadow-[0_10px_0_rgba(62,114,255,0.3)] transition-transform hover:-translate-y-0.5 hover:bg-white',
-            )}
-          >
+        <DialogFooter className="sm:flex-row sm:justify-end">
+          <Button type="button" variant="outline" onClick={onClose}>
             閉じる
           </Button>
         </DialogFooter>
