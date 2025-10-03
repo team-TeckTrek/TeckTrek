@@ -30,31 +30,37 @@ export default function NoticeDialog({
     [onClose],
   );
 
-  const title = notice?.title ?? 'お知らせ';
+  const title = notice?.title ?? 'メンテナンスのお知らせ';
   const content = notice?.content ?? '';
   const date = notice?.date ?? '';
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent>
-        <DialogHeader className="gap-3">
-          <div className="flex items-start justify-between gap-3">
-            <DialogTitle className="text-base font-semibold text-[#5B3A18]">
+      <DialogContent className="bg-[#F3F4F6] p-[10px]">
+        <DialogHeader className="gap-2">
+          <div className="flex items-start justify-between gap-2">
+            <DialogTitle className="text-sm font-semibold text-[#5B3A18]">
               {title}
             </DialogTitle>
             {date ? (
-              <span className="pt-0.5 text-sm text-[#5B3A18]">
+              <span className="text-xs text-[#5B3A18]/90" aria-label="通知日付">
                 {date}
               </span>
             ) : null}
           </div>
-          <DialogDescription className="whitespace-pre-line text-sm text-[#5B3A18]">
+
+          <DialogDescription className="whitespace-pre-line text-xs text-[#5B3A18] leading-relaxed">
             {content || 'お知らせの内容がここに表示されます。'}
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="sm:flex-row sm:justify-end">
-          <Button type="button" variant="outline" onClick={onClose}>
+        <DialogFooter className="mt-auto">
+          <Button
+            type="button"
+            onClick={onClose}
+            className="h-9 w-28 rounded-full border border-[#93C5FD] bg-white text-xs text-[#2563EB] hover:bg-[#F1F5FF]"
+            variant="outline"
+          >
             閉じる
           </Button>
         </DialogFooter>
