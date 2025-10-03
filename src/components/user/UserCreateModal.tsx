@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-type Props = {
+export interface UserCreateModalProps {
   mode: 'random' | 'friends'
   onClose: () => void
   onConfirm?: (data: {
@@ -20,11 +20,10 @@ export default function UserCreateModalContent({
   mode,
   onClose,
   onConfirm,
-}: Props) {
+}: UserCreateModalProps) {
   const [name, setName] = useState('')
   const [icon, setIcon] = useState<number | null>(null)
-  const [loading, setLoading] = useState(false) // ← 処理中フラグ（ボタン無効化だけに使う）
-
+  const [loading, setLoading] = useState(false)
   const icons = ['🐱', '🐶', '🐰', '🦊', '🐼', '🐻', '🐨', '🐯']
   const validName = name.trim().length >= 1 && name.trim().length <= 12
   const valid = validName && icon !== null
@@ -43,11 +42,11 @@ export default function UserCreateModalContent({
   return (
     <>
       <DialogHeader>
-        <DialogTitle>ユーザー作成</DialogTitle>
+        <DialogTitle>アイコンを選択してください</DialogTitle>
       </DialogHeader>
 
       {/* アイコン選択 */}
-      <div className="mt-2 grid grid-cols-4 gap-4">
+      <div className="mt-4 grid grid-cols-4 gap-3 w-125">
         {icons.map((emj, i) => {
           const checked = icon === i
           return (
@@ -55,9 +54,13 @@ export default function UserCreateModalContent({
               key={i}
               type="button"
               onClick={() => setIcon(i)}
-              className={`h-16 w-16 rounded-full border-2 text-2xl
-                ${checked ? 'border-green-600 ring-2 ring-green-400' : 'border-transparent'}
-                focus:outline-none focus:ring-2`}
+              className={`grid place-items-center h-20 w-20 rounded-full text-2xl transition bg-[#D0FFFD]
+                ${
+                  checked
+                    ? 'ring-4 ring-[#4CC314] ring-offset-2 ring-offset-background'
+                    : 'ring-2 ring-[#9BE27A]'
+                }
+                focus:outline-none focus-visible:ring-4 focus-visible:ring-[#4CC314]/40`}
               aria-pressed={checked}
             >
               <span aria-hidden>{emj}</span>
@@ -67,18 +70,21 @@ export default function UserCreateModalContent({
       </div>
 
       {/* 名前入力 */}
-      <div className="mt-4 space-y-1.5">
-        <Label htmlFor="username">ユーザーネーム（1〜12文字）</Label>
+      <div className="mt- space-y-1.5">
+        <Label className="mt-5" htmlFor="username">
+          ユーザーネームを入力してください
+        </Label>
         <Input
+          className="h-10 w-115 border-2 border-black"
           id="username"
-          maxLength={12}
+          maxLength={14}
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="テキスト"
           autoFocus
         />
         {!validName && name.length > 0 && (
-          <p className="text-sm text-red-600">1〜12文字で入力してください</p>
+          <p className="text-sm text-red-600">1〜14文字で入力してください</p>
         )}
       </div>
 
@@ -87,7 +93,11 @@ export default function UserCreateModalContent({
         <Button variant="outline" onClick={onClose} disabled={loading}>
           キャンセル
         </Button>
-        <Button onClick={handleConfirm} disabled={!valid || loading}>
+        <Button
+          onClick={handleConfirm}
+          disabled={!valid || loading}
+          className="bg-[#5D80D8]"
+        >
           決定（{mode === 'random' ? 'ランダム' : '友達'}）
         </Button>
       </div>
