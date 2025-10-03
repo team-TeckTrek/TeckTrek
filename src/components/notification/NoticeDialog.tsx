@@ -36,20 +36,22 @@ export default function NoticeDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-[#F3F4F6] p-[10px]">
+      <DialogContent className="bg-[#F3F4F6] p-[24px] text-[14px]">
         <DialogHeader className="gap-2">
           <div className="flex items-start justify-between gap-2">
-            <DialogTitle className="text-sm font-semibold text-[#5B3A18]">
+            <DialogTitle className="text-[14px] font-bold text-[#5B3A18]">
               {title}
             </DialogTitle>
             {date ? (
-              <span className="text-xs text-[#5B3A18]/90" aria-label="通知日付">
+              <span className="text-[14px] text-[#5B3A18]/90" aria-label="通知日付">
                 {date}
               </span>
             ) : null}
           </div>
 
-          <DialogDescription className="whitespace-pre-line text-xs text-[#5B3A18] leading-relaxed">
+          <DialogDescription
+            className="h-[85px] w-[327px] max-w-full overflow-hidden whitespace-pre-line text-[14px] font-normal text-[#5B3A18] leading-[100%] tracking-[0]"
+          >
             {content || 'お知らせの内容がここに表示されます。'}
           </DialogDescription>
         </DialogHeader>
@@ -58,7 +60,7 @@ export default function NoticeDialog({
           <Button
             type="button"
             onClick={onClose}
-            className="h-9 w-28 rounded-full border border-[#93C5FD] bg-white text-xs text-[#2563EB] hover:bg-[#F1F5FF]"
+            className="w-[134px] h-[41px] rounded-[100px] border-2 border-[#2563EB] bg-white text-[14px] text-[#2563EB] px-6 py-3 hover:bg-[#F1F5FF] "
             variant="outline"
           >
             閉じる
