@@ -37,7 +37,7 @@ export default function NoticeDialog({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="bg-[#F3F4F6] p-[24px] text-[14px]">
-        <DialogHeader className="gap-2">
+        <DialogHeader className="gap-6">
           <div className="flex items-start justify-between gap-2">
             <DialogTitle className="text-[14px] font-bold text-[#5B3A18]">
               {title}
