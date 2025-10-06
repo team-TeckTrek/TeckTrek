@@ -43,15 +43,16 @@ export default function NoticeDialog({
               {title}
             </DialogTitle>
             {date ? (
-              <span className="text-[14px] text-[#5B3A18]/90" aria-label="通知日付">
+              <span
+                className="text-[14px] text-[#5B3A18]/90"
+                aria-label="通知日付"
+              >
                 {date}
               </span>
             ) : null}
           </div>
 
-          <DialogDescription
-            className="h-[85px] w-[327px] max-w-full overflow-hidden whitespace-pre-line text-[14px] font-normal text-[#5B3A18] leading-[100%] tracking-[0]"
-          >
+          <DialogDescription className="h-[85px] w-[327px] max-w-full overflow-hidden whitespace-pre-line text-[14px] font-normal text-[#5B3A18] leading-[100%] tracking-[0]">
             {content || 'お知らせの内容がここに表示されます。'}
           </DialogDescription>
         </DialogHeader>
