@@ -1,5 +1,4 @@
-// カードの枚数を表示するコンポーネント
-type Props = {
+interface Props {
   current: number
   total: number
 }
