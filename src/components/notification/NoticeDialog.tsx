@@ -10,17 +10,13 @@ import {
 import { Button } from '@/components/ui/button';
 import type { Notice } from './types';
 
-interface NoticeDialogProps {
+interface Props {
   open: boolean;
   notice: Notice | null;
   onClose: () => void;
 }
 
-export default function NoticeDialog({
-  open,
-  notice,
-  onClose,
-}: NoticeDialogProps) {
+export default function NoticeDialog({ open, notice, onClose }: Props) {
   const handleOpenChange = useCallback(
     (nextOpen: boolean) => {
       if (!nextOpen) {

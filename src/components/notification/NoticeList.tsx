@@ -5,13 +5,13 @@ import NoticeItem from './NoticeItem';
 import NoticeDialog from './NoticeDialog';
 import { Notice } from './types';
 
-interface NoticeListProps {
+interface Props {
   notices?: Notice[];
 }
 
 const MAX_DISPLAY_COUNT = 3;
 
-export default function NoticeList({ notices }: NoticeListProps) {
+export default function NoticeList({ notices }: Props) {
   const [modalData, setModalData] = useState<Notice | null>(null);
 
   const availableNotices = Array.isArray(notices) ? notices : [];
