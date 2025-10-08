@@ -27,7 +27,7 @@ export default function NoticeList({ notices }: NoticeListProps) {
   }, []);
 
   return (
-    <section className="mt-6 w-full text-[#5B3A18]">
+    <section className="mt-6 w-full text-[#5B3A18] bg-white/70">
       <h2 className="mb-4 text-lg font-bold">お知らせ</h2>
 
       {hasNotices ? (
