@@ -1,4 +1,4 @@
-import { Sample } from '@/components/sample/sample'
+import Sample from '@/components/demo/sample'
 
 export default function Page() {
   return (

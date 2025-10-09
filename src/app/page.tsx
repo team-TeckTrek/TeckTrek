@@ -9,6 +9,7 @@ async function getNotices() {
     if (!res.ok) return []
     return (await res.json()) as any[]
   } catch (e) {
+    console.error(e)
     return []
   }
 }
