@@ -1,30 +1,30 @@
-'use client';
+'use client'
 
-import React, { useCallback, useState } from 'react';
-import NoticeItem from './NoticeItem';
-import NoticeDialog from './NoticeDialog';
-import { Notice } from './types';
+import React, { useCallback, useState } from 'react'
+import NoticeItem from './NoticeItem'
+import NoticeDialog from './NoticeDialog'
+import { Notice } from './types'
 
 interface Props {
-  notices?: Notice[];
+  notices?: Notice[]
 }
 
-const MAX_DISPLAY_COUNT = 3;
+const MAX_DISPLAY_COUNT = 3
 
 export default function NoticeList({ notices }: Props) {
-  const [modalData, setModalData] = useState<Notice | null>(null);
+  const [modalData, setModalData] = useState<Notice | null>(null)
 
-  const availableNotices = Array.isArray(notices) ? notices : [];
-  const list = availableNotices.slice(0, MAX_DISPLAY_COUNT);
-  const hasNotices = list.length > 0;
+  const availableNotices = Array.isArray(notices) ? notices : []
+  const list = availableNotices.slice(0, MAX_DISPLAY_COUNT)
+  const hasNotices = list.length > 0
 
   const handleOpen = useCallback((notice: Notice) => {
-    setModalData(notice);
-  }, []);
+    setModalData(notice)
+  }, [])
 
   const handleClose = useCallback(() => {
-    setModalData(null);
-  }, []);
+    setModalData(null)
+  }, [])
 
   return (
     <section className="mt-6 w-full text-[#5B3A18] bg-white/70">
@@ -46,5 +46,5 @@ export default function NoticeList({ notices }: Props) {
         onClose={handleClose}
       />
     </section>
-  );
+  )
 }

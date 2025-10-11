@@ -1,23 +1,21 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { Notice, DEFAULT_TITLE_MAX } from './types';
+import React from 'react'
+import { Notice, DEFAULT_TITLE_MAX } from './types'
 
 interface Props {
-  notice: Notice;
-  onOpen: (notice: Notice) => void;
+  notice: Notice
+  onOpen: (notice: Notice) => void
 }
 
 export default function NoticeItem({ notice, onOpen }: Props) {
-  const title = notice.title || '';
+  const title = notice.title || ''
   const shortTitle =
-    title.length > DEFAULT_TITLE_MAX
-      ? title.slice(0, DEFAULT_TITLE_MAX)
-      : title;
+    title.length > DEFAULT_TITLE_MAX ? title.slice(0, DEFAULT_TITLE_MAX) : title
 
   const handleClick = () => {
-    onOpen(notice);
-  };
+    onOpen(notice)
+  }
 
   return (
     <li className="group flex items-baseline gap-6 py-2 text-base text-[#5B3A18]">
@@ -32,5 +30,5 @@ export default function NoticeItem({ notice, onOpen }: Props) {
         </span>
       </button>
     </li>
-  );
+  )
 }

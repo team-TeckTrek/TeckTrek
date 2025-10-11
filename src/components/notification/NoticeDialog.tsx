@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -6,29 +6,29 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import type { Notice } from './types';
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import type { Notice } from './types'
 
 interface Props {
-  open: boolean;
-  notice: Notice | null;
-  onClose: () => void;
+  open: boolean
+  notice: Notice | null
+  onClose: () => void
 }
 
 export default function NoticeDialog({ open, notice, onClose }: Props) {
   const handleOpenChange = useCallback(
     (nextOpen: boolean) => {
       if (!nextOpen) {
-        onClose();
+        onClose()
       }
     },
     [onClose],
-  );
+  )
 
-  const title = notice?.title ?? 'メンテナンスのお知らせ';
-  const content = notice?.content ?? '';
-  const date = notice?.date ?? '';
+  const title = notice?.title ?? 'メンテナンスのお知らせ'
+  const content = notice?.content ?? ''
+  const date = notice?.date ?? ''
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -65,5 +65,5 @@ export default function NoticeDialog({ open, notice, onClose }: Props) {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

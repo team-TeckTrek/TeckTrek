@@ -1,4 +1,4 @@
-import type { Notice } from '@/components/notification/types';
+import type { Notice } from '@/components/notification/types'
 
 export const DEFAULT_NOTICES = [
   {
@@ -22,4 +22,4 @@ export const DEFAULT_NOTICES = [
     content:
       'Teck Trek 絵しりとりアプリの正式リリースをお知らせします。ぜひ遊んでみてください。',
   },
-] satisfies Notice[];
+] satisfies Notice[]

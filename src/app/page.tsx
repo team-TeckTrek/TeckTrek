@@ -1,5 +1,5 @@
-import NoticeList from '@/components/notification/NoticeList';
-import { DEFAULT_NOTICES } from '@/constants/notices';
+import NoticeList from '@/components/notification/NoticeList'
+import { DEFAULT_NOTICES } from '@/constants/notices'
 
 export default function Page() {
   return (
@@ -9,5 +9,5 @@ export default function Page() {
       </div>
       {/* 他のコンテンツ */}
     </main>
-  );
+  )
 }

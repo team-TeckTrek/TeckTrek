@@ -1,6 +1,6 @@
 // pages/index.tsx
 
-import NoticeList from '@/components/notification/NoticeList';
+import NoticeList from '@/components/notification/NoticeList'
 
 export default function Home() {
   return (
@@ -9,5 +9,5 @@ export default function Home() {
         <NoticeList />
       </div>
     </main>
-  );
+  )
 }
