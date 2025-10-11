@@ -17,6 +17,7 @@ export default function Page() {
           <Sample title="下のボタン群" />
         </div>
       </div>
+
       <div className="flex flex-col gap-2 flex-[183] min-w-[183px]">
         <div className="bg-neutral-200 flex-1 flex flex-col items-center justify-center">
           <Sample title="タイム、退室" />

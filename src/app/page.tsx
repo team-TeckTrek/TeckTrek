@@ -1,25 +1,13 @@
-//import NoticeList from '@/components/notification/NoticeList';
-import NoticeList from '../components/notification/NoticeList'
+import NoticeList from '@/components/notification/NoticeList'
+import { DEFAULT_NOTICES } from '@/constants/notices'
 
-async function getNotices() {
-  try {
-    const res = await fetch('https://your-api-endpoint/notices', {
-      cache: 'no-store',
-    })
-    if (!res.ok) return []
-    return (await res.json()) as any[]
-  } catch (e) {
-    console.error(e)
-    return []
-  }
-}
-
-export default async function Page() {
-  const notices = await getNotices()
-
+export default function Page() {
   return (
-    <main>
-      <NoticeList notices={notices} />
+    <main className="flex min-h-screen flex-col items-center bg-gray-50">
+      <div className="mt-8 w-[600px]">
+        <NoticeList notices={DEFAULT_NOTICES} />
+      </div>
+      {/* 他のコンテンツ */}
     </main>
   )
 }
