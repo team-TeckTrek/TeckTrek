@@ -1,4 +1,7 @@
+'use client'
+
 import Sample from '@/components/demo/sample'
+import Timer from '@/components/play/Timer' // ← これだけ追加！
 
 export default function Page() {
   return (
@@ -15,8 +18,9 @@ export default function Page() {
         </div>
       </div>
       <div className="flex flex-col gap-2 flex-[183] min-w-[183px]">
-        <div className="bg-neutral-200 flex-1 flex">
+        <div className="bg-neutral-200 flex-1 flex flex-col items-center justify-center">
           <Sample title="タイム、退室" />
+          <Timer initialTime={60} isRunning={true} />
         </div>
         <div className="bg-neutral-200 flex-1 flex">
           <Sample title="プレイヤーアイコン" />
