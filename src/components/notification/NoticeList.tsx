@@ -1,47 +1,49 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import NoticeItem from './NoticeItem'
 import NoticeDialog from './NoticeDialog'
 import { Notice } from './types'
 
-interface NoticeListProps {
+interface Props {
   notices?: Notice[]
 }
 
 const MAX_DISPLAY_COUNT = 3
 
-export default function NoticeList({ notices }: NoticeListProps) {
+export default function NoticeList({ notices }: Props) {
   const [modalData, setModalData] = useState<Notice | null>(null)
 
-  const list = useMemo(() => {
-    const arr = Array.isArray(notices) ? notices : []
-    return arr.slice(0, MAX_DISPLAY_COUNT)
-  }, [notices])
+  const availableNotices = Array.isArray(notices) ? notices : []
+  const list = availableNotices.slice(0, MAX_DISPLAY_COUNT)
+  const hasNotices = list.length > 0
+
+  const handleOpen = useCallback((notice: Notice) => {
+    setModalData(notice)
+  }, [])
+
+  const handleClose = useCallback(() => {
+    setModalData(null)
+  }, [])
 
   return (
-    <section className="bg-white rounded-lg shadow p-6 w-full max-w-2xl mx-auto mt-8">
-      <h2 className="text-lg font-bold mb-2">お知らせ</h2>
+    <section className="mt-6 w-full text-[#5B3A18] bg-white/70">
+      <h2 className="mb-4 text-lg font-bold">お知らせ</h2>
 
-      {list.length === 0 ? (
-        <div className="text-sm text-gray-500">お知らせはありません</div>
-      ) : (
+      {hasNotices ? (
         <ul>
           {list.map((notice) => (
-            <NoticeItem
-              key={notice.id}
-              notice={notice}
-              onOpen={(n) => setModalData(n)}
-            />
+            <NoticeItem key={notice.id} notice={notice} onOpen={handleOpen} />
           ))}
         </ul>
+      ) : (
+        <div className="text-sm text-[#5B3A18]">お知らせはありません</div>
       )}
 
       <NoticeDialog
         open={modalData !== null}
-        title={modalData?.title ?? ''}
-        content={modalData?.content ?? ''}
-        onClose={() => setModalData(null)}
+        notice={modalData}
+        onClose={handleClose}
       />
     </section>
   )
