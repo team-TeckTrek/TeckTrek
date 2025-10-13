@@ -3,7 +3,7 @@ import React from 'react'
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
 // ここは配置に合わせて。となりに置くなら './UserCreateModal'
-import UserCreateModalContent from '@/components/user/UserCreateModal'
+import UserCreateModalContent from '@/components/top/UserCreateModal'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 
 type UCProps = React.ComponentProps<typeof UserCreateModalContent>

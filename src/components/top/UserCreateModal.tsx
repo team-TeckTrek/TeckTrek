@@ -6,7 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-export interface UserCreateModalProps {
+const FORBIDDEN_RE = /[`｀@＠&＆'’‘]/
+
+interface Props {
   mode: 'random' | 'friends'
   onClose: () => void
   onConfirm?: (data: {
@@ -20,19 +22,35 @@ export default function UserCreateModalContent({
   mode,
   onClose,
   onConfirm,
-}: UserCreateModalProps) {
+}: Props) {
   const [name, setName] = useState('')
   const [icon, setIcon] = useState<number | null>(null)
   const [loading, setLoading] = useState(false)
+  const [banError, setBanError] = useState<string | null>(null)
+
   const icons = ['🐱', '🐶', '🐰', '🦊', '🐼', '🐻', '🐨', '🐯']
-  const validName = name.trim().length >= 1 && name.trim().length <= 12
+
+  const trimmed = name.trim()
+  const hasForbidden = /[`@&'’]/.test(trimmed)
+  const lenOk = trimmed.length >= 1 && trimmed.length <= 14
+  const validName = lenOk && !hasForbidden
   const valid = validName && icon !== null
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value
+    if (FORBIDDEN_RE.test(raw)) {
+      setBanError('使用できない文字が含まれています')
+      return
+    }
+    setName(raw)
+    if (banError) setBanError(null)
+  }
 
   const handleConfirm = async () => {
     if (!valid) return
     setLoading(true)
     try {
-      onConfirm?.({ name: name.trim(), iconIndex: icon!, mode })
+      onConfirm?.({ name: trimmed, iconIndex: icon!, mode })
       onClose()
     } finally {
       setLoading(false)
@@ -48,50 +66,47 @@ export default function UserCreateModalContent({
           </DialogTitle>
         </DialogHeader>
 
-        {/* アイコン選択 */}
-        <div className="mt-4 grid grid-cols-4 gap-y-4 gap-x-17 w-125">
+        <div className="mt-4 grid grid-cols-4 gap-y-4 gap-x-17">
           {icons.map((emj, i) => {
             const checked = icon === i
             return (
-              <button
+              <Button
                 key={i}
                 type="button"
                 onClick={() => setIcon(i)}
-                className={`grid place-items-center h-20 w-20 rounded-full text-[60px] transition bg-[#D0FFFD]
-                ${
-                  checked
-                    ? 'ring-4 ring-[#4CC314] ring-offset-2 ring-offset-background'
-                    : 'ring-2 ring-[#9BE27A]'
-                }
-                focus:outline-none focus-visible:ring-4 focus-visible:ring-[#4CC314]/40`}
+                className={`grid place-items-center h-20 w-20 rounded-full text-[50px] transition bg-[#D0FFFD]
+                  ${checked ? 'ring-4 ring-[#4CC314] ring-offset-2 ring-offset-background' : 'ring-2 ring-[#9BE27A]'}
+                  focus:outline-none focus-visible:ring-4 focus-visible:ring-[#4CC314]/40`}
                 aria-pressed={checked}
               >
                 <span aria-hidden>{emj}</span>
-              </button>
+              </Button>
             )
           })}
         </div>
 
-        {/* 名前入力 */}
         <div className="mt-9 space-y-1.5">
           <Label className="mt-5 text-[20px] font-thin" htmlFor="username">
             ユーザーネームを入力してください
           </Label>
+
           <Input
-            className="!h-14 !px-4 !py-0 border-2 border-black !text-[40px] placeholder:!text-[40px] !leading-[40px] [padding-block:6px] appearance-none"
             id="username"
             maxLength={14}
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNameChange}
             placeholder="テキスト"
             autoFocus
+            aria-invalid={!validName && name.length > 0 ? true : undefined}
+            className="!h-14 !px-4 border-2 border-black !text-[40px] placeholder:!text-[40px] !leading-[40px] [padding-block:6px] appearance-none"
           />
-          {!validName && name.length > 0 && (
+
+          {!lenOk && name.length > 0 && (
             <p className="text-sm text-red-600">1〜14文字で入力してください</p>
           )}
+          {banError && <p className="text-sm text-red-600">{banError}</p>}
         </div>
 
-        {/* 操作 */}
         <div className="mt-10 flex justify-end gap-5">
           <Button
             variant="outline"
