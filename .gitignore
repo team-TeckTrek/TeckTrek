@@ -3,7 +3,7 @@
 # dependencies
 /node_modules
 /.pnp
-.pnp.*
+.pnp.*git pull --no-rebase origin develop
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env
+
+*storybook.log
+storybook-static

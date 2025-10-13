@@ -1,18 +1,8 @@
-'use client'
-import OpenModalButton from '@/components/common/OpenModalButton'
-
-export default function Page() {
+export default function Home() {
   return (
-    <main className="p-6">
-      <OpenModalButton
-        label="モーダル"
-        renderContent={(close: () => void) => (
-          <div>
-            <p>中身</p>
-            <button onClick={close}>閉じる</button>
-          </div>
-        )}
-      />
+    <main className="flex min-h-screen flex-col items-center bg-gray-50">
+      <div className="mt-8 w-[600px]"></div>
+      {/* 他のコンテンツ */}
     </main>
   )
 }
