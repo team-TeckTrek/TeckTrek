@@ -7,8 +7,8 @@ import DrawingCanvas, {
 import ToolPalettePanel from './ToolPalettePanel'
 
 const DEFAULT_COLORS = [
-  '#1F1F1F',
-  '#5C5C5C',
+  '#000000',
+  '#696969',
   '#9E9E9E',
   '#D6D6D6',
   '#F3F3F3',
