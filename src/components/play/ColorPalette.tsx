@@ -33,7 +33,8 @@ export default function ColorPalette({
               width: 42,
               height: 30,
               borderRadius: 6,
-              boxShadow: '-2px -2px 5px 0px #00000040 inset',
+              boxShadow:
+                '-2px -2px 5px 0px #00000040 inset, 1px 1px 2px 0px #00000080',
             }}
             onClick={() => onSelectColor(color)}
             className={clsx(
