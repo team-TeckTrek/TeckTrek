@@ -2,26 +2,22 @@
 
 import { useEffect, useState } from 'react'
 
-type TimerProps = {
+interface Props {
   initialTime: number
   isRunning: boolean
   onComplete?: () => void
 }
 
-export default function Timer({
-  initialTime,
-  isRunning,
-  onComplete,
-}: TimerProps) {
+export default function Timer({ initialTime, isRunning, onComplete }: Props) {
   const [timeLeft, setTimeLeft] = useState(initialTime)
 
   useEffect(() => {
     if (!isRunning || timeLeft <= 0) return
 
-    const t = setInterval(() => {
+    const time = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          clearInterval(t)
+          clearInterval(time)
           onComplete?.()
           return 0
         }
@@ -29,49 +25,21 @@ export default function Timer({
       })
     }, 1000)
 
-    return () => clearInterval(t)
+    return () => clearInterval(time)
   }, [isRunning, timeLeft, onComplete])
 
-  const labelStyle: React.CSSProperties = {
-    color: '#3A1F05',
-    fontWeight: 950,
-    WebkitTextStroke: '1.5px white',
-    textShadow: '2px 2px 6px rgba(0,0,0,0.25)',
-  }
-
   const RemainingLabel = () => (
-    <span className="text-[40px] -translate-y-[100px]" style={labelStyle}>
+    <span className="text-[40px] -translate-y-[100px] text-timer-label">
       残り
     </span>
   )
 
   const TimerNumber = () => (
-    <span
-      className="text-[160px]"
-      style={{
-        color: '#3A1F05',
-        fontWeight: 500,
-        fontVariantNumeric: 'tabular-nums',
-        textShadow: [
-          '-9px -9px 0 #fff',
-          '9px -9px 0 #fff',
-          '-9px 9px 0 #fff',
-          '9px 9px 0 #fff',
-          '0 9px 0 #fff',
-          '0 -9px 0 #fff',
-          '9px 0 0 #fff',
-          '-9px 0 0 #fff',
-        ].join(', '),
-      }}
-    >
-      {timeLeft}
-    </span>
+    <span className="text-[160px] text-timer-number">{timeLeft}</span>
   )
 
   const SecondsLabel = () => (
-    <span className="text-[40px] -translate-y-[30px]" style={labelStyle}>
-      秒
-    </span>
+    <span className="text-[40px] -translate-y-[30px] text-timer-label">秒</span>
   )
 
   return (

@@ -5,10 +5,6 @@ const meta: Meta<typeof Timer> = {
   title: 'Play/Timer',
   component: Timer,
   tags: ['autodocs'],
-  args: {
-    initialTime: 10,
-    isRunning: true,
-  },
 }
 
 export default meta
