@@ -1,7 +1,7 @@
 'use client'
 
 import Sample from '@/components/demo/sample'
-import Timer from '@/components/play/Timer' // ← これだけ追加！
+import Timer from '@/components/play/Timer'
 
 export default function Page() {
   return (

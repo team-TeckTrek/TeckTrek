@@ -28,25 +28,15 @@ export default function Timer({ initialTime, isRunning, onComplete }: Props) {
     return () => clearInterval(time)
   }, [isRunning, timeLeft, onComplete])
 
-  const RemainingLabel = () => (
-    <span className="text-[40px] -translate-y-[100px] text-timer-label">
-      残り
-    </span>
-  )
-
-  const TimerNumber = () => (
-    <span className="text-[160px] text-timer-number">{timeLeft}</span>
-  )
-
-  const SecondsLabel = () => (
-    <span className="text-[40px] -translate-y-[30px] text-timer-label">秒</span>
-  )
-
   return (
     <div className="flex items-end justify-center gap-3 leading-none">
-      <RemainingLabel />
-      <TimerNumber />
-      <SecondsLabel />
+      <span className="text-[40px] -translate-y-[100px] text-timer-label">
+        残り
+      </span>
+      <span className="text-[160px] text-timer-number">{timeLeft}</span>
+      <span className="text-[40px] -translate-y-[30px] text-timer-label">
+        秒
+      </span>
     </div>
   )
 }
