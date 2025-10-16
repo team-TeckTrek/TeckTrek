@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import clsx from 'clsx'
 import DrawingCanvas, {
@@ -95,17 +97,19 @@ export default function DrawingBoard({
         className,
       )}
     >
-      <DrawingCanvas
-        ref={canvasRef}
-        width={width}
-        height={height}
-        strokeColor={strokeColor}
-        lineWidth={strokeWidth}
-        tool={tool}
-        backgroundColor="#FFFFFF"
-        onHistoryChange={setHistoryState}
-        className="flex-shrink-0"
-      />
+      <div className="flex-shrink-0 rounded-[20px] border-[5px] border-[#D9D9D9] bg-white p-4 shadow-[inset_-2px_-2px_5px_rgba(0,0,0,0.25)]">
+        <DrawingCanvas
+          ref={canvasRef}
+          width={width}
+          height={height}
+          strokeColor={strokeColor}
+          lineWidth={strokeWidth}
+          tool={tool}
+          backgroundColor="#FFFFFF"
+          onHistoryChange={setHistoryState}
+          className="touch-none"
+        />
+      </div>
 
       <ToolPalettePanel
         tool={tool}

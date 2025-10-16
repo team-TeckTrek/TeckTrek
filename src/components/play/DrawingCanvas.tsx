@@ -274,10 +274,7 @@ const DrawingCanvas = forwardRef<DrawingCanvasHandle, DrawingCanvasProps>(
     return (
       <canvas
         ref={canvasRef}
-        className={clsx(
-          'touch-none rounded-2xl border border-[#D3C9C1] bg-white shadow-inner',
-          className,
-        )}
+        className={clsx(className)}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={finishStroke}

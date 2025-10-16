@@ -1,6 +1,7 @@
 import Sample from '@/components/demo/sample'
 import CardCounter from '@/components/play/CardCounter'
 import ExitButton from '@/components/play/ExitButton'
+import DrawingBoard from '@/components/play/DrawingBoard'
 
 export default function Page() {
   return (
@@ -9,8 +10,8 @@ export default function Page() {
         <div className="bg-neutral-200 flex-1 flex">
           <Sample title="過去絵セクション" />
         </div>
-        <div className="bg-neutral-200 flex-1 flex">
-          <Sample title="キャンバス" />
+        <div className="bg-neutral-200 flex-1 flex items-center justify-center p-4">
+          <DrawingBoard />
         </div>
         <div className="bg-neutral-200 flex-1 flex">
           <Sample title="下のボタン群" />
