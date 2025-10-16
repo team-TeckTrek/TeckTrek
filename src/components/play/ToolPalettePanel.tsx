@@ -53,7 +53,6 @@ export default function ToolPalettePanel({
         canRedo={canRedo}
       />
       <div className="flex flex-col gap-3">
-        <span className="text-sm font-semibold">線の太さ</span>
         <StrokeWidthSlider value={strokeWidth} onChange={onStrokeWidthChange} />
       </div>
       <div className="flex flex-col gap-3">

@@ -21,12 +21,10 @@ export default function StrokeWidthSlider({
   return (
     <div className={clsx('flex flex-col gap-3', className)}>
       <div className="flex items-center justify-between text-[#4B2E0F]">
-        <span className="text-sm">細</span>
         <div className="relative flex h-5 w-full items-center px-6">
-          <span className="absolute left-0 h-3 w-3 rounded-full border border-[#4B2E0F] bg-white" />
+          <span className="absolute left-0 h-3 w-3 rounded-full border border-[#4B2E0F] " />
           <span className="absolute right-0 h-5 w-5 rounded-full border border-[#4B2E0F] bg-white" />
         </div>
-        <span className="text-sm">太</span>
       </div>
       <input
         type="range"
