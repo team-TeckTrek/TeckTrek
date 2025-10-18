@@ -47,6 +47,7 @@ export default function CanvasToolbar({
               width: '29.201px',
               height: '27.328px',
               transform: 'translate(0.3px, 0.3px)',
+              boxShadow: '1px 1px 2px 0px #00000080',
             }}
           />
         </button>
@@ -63,6 +64,7 @@ export default function CanvasToolbar({
               width: '29.201px',
               height: '27.328px',
               transform: 'translate(0.3px, 0.3px)',
+              boxShadow: '1px 1px 2px 0px #00000080',
             }}
           />
         </button>
@@ -83,8 +85,11 @@ export default function CanvasToolbar({
         >
           <PencilIcon
             className="h-[34px] w-[34px]"
-            color={activeTool === 'pen' ? '#2556EB' : '#462C05'}
-            style={{ transform: 'translate(0.18px, 0.82px)' }}
+            color="#462C05"
+            style={{
+              transform: 'translate(0.18px, 0.82px)',
+              boxShadow: '1px 1px 2px 0px #00000080',
+            }}
           />
         </button>
 
@@ -100,7 +105,10 @@ export default function CanvasToolbar({
           aria-pressed={activeTool === 'eraser'}
           aria-label="消しゴムツール"
         >
-          <Eraser className="h-6 w-6" />
+          <Eraser
+            className="h-6 w-6"
+            style={{ boxShadow: '1px 1px 2px 0px #00000080' }}
+          />
         </button>
 
         <button
@@ -109,7 +117,10 @@ export default function CanvasToolbar({
           onClick={onClear}
           aria-label="全て消す"
         >
-          <Trash2 className="h-6 w-6" />
+          <Trash2
+            className="h-6 w-6"
+            style={{ boxShadow: '1px 1px 2px 0px #00000080' }}
+          />
         </button>
       </div>
     </div>
