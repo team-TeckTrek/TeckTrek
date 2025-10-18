@@ -15,10 +15,10 @@ interface CanvasToolbarProps {
 }
 
 const controlButtonBase =
-  'flex h-[59px] w-[59px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-white px-3 text-[#4B2E0F] transition-colors hover:bg-[#F4E5CF]'
+  'flex h-[59px] w-[59px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-white px-3 text-[#4B2E0F] shadow-[1px_1px_2px_rgba(0,0,0,0.5)] transition-colors hover:bg-[#F4E5CF]'
 
 const historyButtonBase =
-  'flex h-[40px] w-[92px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-white text-[#4B2E0F] shadow-[0_3px_0_rgba(75,46,15,0.25)] transition-colors hover:bg-[#F4E5CF]'
+  'flex h-[40px] w-[92px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-white text-[#4B2E0F] shadow-[1px_1px_2px_rgba(0,0,0,0.5)] transition-colors hover:bg-[#F4E5CF]'
 
 export default function CanvasToolbar({
   activeTool,
