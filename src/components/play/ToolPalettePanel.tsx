@@ -42,7 +42,7 @@ export default function ToolPalettePanel({
         'flex h-[466px] w-[225px] flex-col items-center gap-[10px] rounded-2xl border border-[#D3C9C1] p-4 text-[#4B2E0F]',
         className,
       )}
-      style={{ background: 'rgba(255, 238, 221, 0.3)' }}
+      style={{ background: '#FFFFFFB2' }}
     >
       <CanvasToolbar
         activeTool={tool}
