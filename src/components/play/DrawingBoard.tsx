@@ -94,7 +94,7 @@ export default function DrawingBoard({
   return (
     <div
       className={clsx(
-        'flex gap-6 rounded-[24px] border border-[#D3C9C1] bg-[#FFEEDD] p-6',
+        'flex gap-6 rounded-[24px] border border-[#D3C9C1] bg-[rgba(255,255,255,0.7)] p-6',
         className,
       )}
     >

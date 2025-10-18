@@ -15,10 +15,10 @@ interface CanvasToolbarProps {
 }
 
 const controlButtonBase =
-  'flex h-[59px] w-[59px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-white px-3 text-[#4B2E0F] shadow-[1px_1px_2px_rgba(0,0,0,0.5)] transition-colors hover:bg-[#F4E5CF]'
+  'flex h-[59px] w-[59px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-[rgba(255,255,255,0.7)] px-3 text-[#4B2E0F] shadow-[1px_1px_2px_rgba(0,0,0,0.5)] transition-colors hover:bg-[rgba(255,255,255,0.7)]'
 
 const historyButtonBase =
-  'flex h-[40px] w-[92px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-white text-[#4B2E0F] shadow-[1px_1px_2px_rgba(0,0,0,0.5)] transition-colors hover:bg-[#F4E5CF]'
+  'flex h-[40px] w-[92px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-[rgba(255,255,255,0.7)] text-[#4B2E0F] shadow-[1px_1px_2px_rgba(0,0,0,0.5)] transition-colors hover:bg-[rgba(255,255,255,0.7)]'
 
 export default function CanvasToolbar({
   activeTool,
@@ -94,7 +94,9 @@ export default function CanvasToolbar({
           type="button"
           className={clsx(
             controlButtonBase,
-            activeTool === 'eraser' ? 'bg-[#FFE9D6] hover:bg-[#FFE9D6]' : '',
+            activeTool === 'eraser'
+              ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)]'
+              : '',
           )}
           onClick={() => onToolChange('eraser')}
           aria-pressed={activeTool === 'eraser'}
