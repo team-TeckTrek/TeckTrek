@@ -1,8 +1,7 @@
 import React from 'react'
-import { Eraser, Redo2, Trash2, Undo2 } from 'lucide-react'
+import { Eraser, Pencil, Redo2, Trash2, Undo2 } from 'lucide-react'
 import clsx from 'clsx'
 import type { DrawingTool } from './DrawingCanvas'
-import PencilIcon from './icons/PencilIcon'
 
 interface CanvasToolbarProps {
   activeTool: DrawingTool
@@ -47,7 +46,6 @@ export default function CanvasToolbar({
               width: '29.201px',
               height: '27.328px',
               transform: 'translate(0.3px, 0.3px)',
-              boxShadow: '1px 1px 2px 0px #00000080',
             }}
           />
         </button>
@@ -64,7 +62,6 @@ export default function CanvasToolbar({
               width: '29.201px',
               height: '27.328px',
               transform: 'translate(0.3px, 0.3px)',
-              boxShadow: '1px 1px 2px 0px #00000080',
             }}
           />
         </button>
@@ -83,12 +80,12 @@ export default function CanvasToolbar({
           aria-pressed={activeTool === 'pen'}
           aria-label="ペンツール"
         >
-          <PencilIcon
-            className="h-[34px] w-[34px]"
-            color="#462C05"
+          <Pencil
+            className="text-[#462C05]"
             style={{
+              width: '34.481px',
+              height: '34.492px',
               transform: 'translate(0.18px, 0.82px)',
-              boxShadow: '1px 1px 2px 0px #00000080',
             }}
           />
         </button>
@@ -105,10 +102,7 @@ export default function CanvasToolbar({
           aria-pressed={activeTool === 'eraser'}
           aria-label="消しゴムツール"
         >
-          <Eraser
-            className="h-6 w-6"
-            style={{ boxShadow: '1px 1px 2px 0px #00000080' }}
-          />
+          <Eraser className="h-6 w-6" />
         </button>
 
         <button
@@ -117,10 +111,7 @@ export default function CanvasToolbar({
           onClick={onClear}
           aria-label="全て消す"
         >
-          <Trash2
-            className="h-6 w-6"
-            style={{ boxShadow: '1px 1px 2px 0px #00000080' }}
-          />
+          <Trash2 className="h-6 w-6" />
         </button>
       </div>
     </div>
