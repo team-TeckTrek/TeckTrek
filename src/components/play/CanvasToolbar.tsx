@@ -1,7 +1,8 @@
 import React from 'react'
-import { Eraser, Pencil, Redo2, Trash2, Undo2 } from 'lucide-react'
+import { Eraser, Redo2, Trash2, Undo2 } from 'lucide-react'
 import clsx from 'clsx'
 import type { DrawingTool } from './DrawingCanvas'
+import PencilIcon from './icons/PencilIcon'
 
 interface CanvasToolbarProps {
   activeTool: DrawingTool
@@ -80,13 +81,10 @@ export default function CanvasToolbar({
           aria-pressed={activeTool === 'pen'}
           aria-label="ペンツール"
         >
-          <Pencil
-            className="text-[#462C05]"
-            style={{
-              width: '34.481px',
-              height: '34.492px',
-              transform: 'translate(0.18px, 0.82px)',
-            }}
+          <PencilIcon
+            className="h-[34px] w-[34px]"
+            color={activeTool === 'pen' ? '#2556EB' : '#462C05'}
+            style={{ transform: 'translate(0.18px, 0.82px)' }}
           />
         </button>
 
