@@ -104,7 +104,7 @@ export default function DrawingBoard({
         paddingRight: 28,
         paddingBottom: 48,
         paddingLeft: 28,
-        background: 'var(--main_color1, #FFDEC5)',
+        background: '#FFFFFFB2',
       }}
     >
       <div
