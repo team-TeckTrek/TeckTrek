@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Eraser, Pencil, Redo2, Trash2, Undo2 } from 'lucide-react'
 import clsx from 'clsx'
 import type { DrawingTool } from './DrawingCanvas'
@@ -30,6 +30,8 @@ export default function CanvasToolbar({
   canRedo = false,
   className,
 }: CanvasToolbarProps) {
+  const [isClearPressed, setIsClearPressed] = useState(false)
+
   return (
     <div className={clsx('flex flex-col gap-4', className)}>
       <div className="grid h-[40px] w-[193px] grid-cols-2 gap-2">
@@ -107,8 +109,22 @@ export default function CanvasToolbar({
 
         <button
           type="button"
-          className={controlButtonBase}
-          onClick={onClear}
+          className={clsx(
+            controlButtonBase,
+            isClearPressed
+              ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)]'
+              : '',
+          )}
+          onMouseDown={() => setIsClearPressed(true)}
+          onMouseUp={() => setIsClearPressed(false)}
+          onMouseLeave={() => setIsClearPressed(false)}
+          onTouchStart={() => setIsClearPressed(true)}
+          onTouchEnd={() => setIsClearPressed(false)}
+          onTouchCancel={() => setIsClearPressed(false)}
+          onClick={() => {
+            setIsClearPressed(false)
+            onClear()
+          }}
           aria-label="全て消す"
         >
           <Trash2 className="h-6 w-6" />
