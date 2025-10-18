@@ -15,10 +15,10 @@ interface CanvasToolbarProps {
 }
 
 const controlButtonBase =
-  'flex h-[59px] w-[59px] items-center justify-center rounded-2xl border border-[#A07D44] bg-white text-[#4B2E0F] transition-colors hover:bg-[#F4E5CF]'
+  'flex h-[59px] w-[59px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-white px-3 text-[#4B2E0F] transition-colors hover:bg-[#F4E5CF]'
 
 const historyButtonBase =
-  'flex h-12 w-full items-center justify-center rounded-xl border border-[#A07D44] bg-white text-[#4B2E0F] shadow-sm transition-colors hover:bg-[#F4E5CF]'
+  'flex h-[40px] w-[92px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-white text-[#4B2E0F] shadow-[0_3px_0_rgba(75,46,15,0.25)] transition-colors hover:bg-[#F4E5CF]'
 
 export default function CanvasToolbar({
   activeTool,
@@ -32,7 +32,42 @@ export default function CanvasToolbar({
 }: CanvasToolbarProps) {
   return (
     <div className={clsx('flex flex-col gap-4', className)}>
-      <div className="flex h-[59px] w-[193px] items-center justify-between gap-2">
+      <div className="grid h-[40px] w-[193px] grid-cols-2 gap-2">
+        <button
+          type="button"
+          className={clsx(historyButtonBase, canUndo ? '' : 'opacity-40')}
+          onClick={onUndo}
+          disabled={!canUndo}
+          aria-label="一つ戻す"
+        >
+          <Undo2
+            className="text-[#462C05]"
+            style={{
+              width: '29.201px',
+              height: '27.328px',
+              transform: 'translate(0.3px, 0.3px)',
+            }}
+          />
+        </button>
+        <button
+          type="button"
+          className={clsx(historyButtonBase, canRedo ? '' : 'opacity-40')}
+          onClick={onRedo}
+          disabled={!canRedo}
+          aria-label="一つ進める"
+        >
+          <Redo2
+            className="text-[#462C05]"
+            style={{
+              width: '29.201px',
+              height: '27.328px',
+              transform: 'translate(0.3px, 0.3px)',
+            }}
+          />
+        </button>
+      </div>
+
+      <div className="grid h-[59px] w-[193px] grid-cols-3 gap-2">
         <button
           type="button"
           className={clsx(
@@ -45,7 +80,14 @@ export default function CanvasToolbar({
           aria-pressed={activeTool === 'pen'}
           aria-label="ペンツール"
         >
-          <Pencil className="h-5 w-5" />
+          <Pencil
+            className="text-[#462C05]"
+            style={{
+              width: '34.481px',
+              height: '34.492px',
+              transform: 'translate(0.18px, 0.82px)',
+            }}
+          />
         </button>
 
         <button
@@ -60,7 +102,7 @@ export default function CanvasToolbar({
           aria-pressed={activeTool === 'eraser'}
           aria-label="消しゴムツール"
         >
-          <Eraser className="h-5 w-5" />
+          <Eraser className="h-6 w-6" />
         </button>
 
         <button
@@ -69,28 +111,7 @@ export default function CanvasToolbar({
           onClick={onClear}
           aria-label="全て消す"
         >
-          <Trash2 className="h-5 w-5" />
-        </button>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <button
-          type="button"
-          className={clsx(historyButtonBase, canUndo ? '' : 'opacity-40')}
-          onClick={onUndo}
-          disabled={!canUndo}
-          aria-label="一つ戻す"
-        >
-          <Undo2 className="h-5 w-5" />
-        </button>
-        <button
-          type="button"
-          className={clsx(historyButtonBase, canRedo ? '' : 'opacity-40')}
-          onClick={onRedo}
-          disabled={!canRedo}
-          aria-label="一つ進める"
-        >
-          <Redo2 className="h-5 w-5" />
+          <Trash2 className="h-6 w-6" />
         </button>
       </div>
     </div>

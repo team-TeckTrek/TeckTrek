@@ -17,7 +17,7 @@ export default function ColorPalette({
   return (
     <div
       className={clsx(
-        'grid grid-cols-4 gap-x-3 gap-y-3 justify-between pt-6 pr-4 pb-6 pl-4',
+        'grid h-[265px] w-[193px] grid-cols-4 gap-x-2 gap-y-4',
         className,
       )}
       style={{ background: '#FFFFFFB2' }}
