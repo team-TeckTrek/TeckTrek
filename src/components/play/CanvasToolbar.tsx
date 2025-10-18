@@ -73,7 +73,7 @@ export default function CanvasToolbar({
           className={clsx(
             controlButtonBase,
             activeTool === 'pen'
-              ? 'border-[#2556EB] bg-[#E8EEFF] text-[#2556EB]'
+              ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)]'
               : '',
           )}
           onClick={() => onToolChange('pen')}
@@ -94,9 +94,7 @@ export default function CanvasToolbar({
           type="button"
           className={clsx(
             controlButtonBase,
-            activeTool === 'eraser'
-              ? 'border-[#A05E2A] bg-[#FFE9D6] text-[#A05E2A]'
-              : '',
+            activeTool === 'eraser' ? 'bg-[#FFE9D6] hover:bg-[#FFE9D6]' : '',
           )}
           onClick={() => onToolChange('eraser')}
           aria-pressed={activeTool === 'eraser'}
