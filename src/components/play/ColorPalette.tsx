@@ -20,7 +20,7 @@ export default function ColorPalette({
         'grid h-[265px] w-[193px] grid-cols-4 gap-x-2 gap-y-4',
         className,
       )}
-      style={{ background: '#FFFFFFB2' }}
+      style={{ background: 'rgba(255, 238, 221, 0.3)' }}
     >
       {colors.map((color) => {
         const isSelected = selectedColor.toLowerCase() === color.toLowerCase()

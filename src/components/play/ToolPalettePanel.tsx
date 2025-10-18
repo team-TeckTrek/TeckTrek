@@ -39,9 +39,10 @@ export default function ToolPalettePanel({
   return (
     <aside
       className={clsx(
-        'flex h-[466px] w-[225px] flex-col items-center gap-[10px] rounded-2xl border border-[#D3C9C1] bg-[rgba(255,255,255,0.7)] p-4 text-[#4B2E0F]',
+        'flex h-[466px] w-[225px] flex-col items-center gap-[10px] rounded-2xl border border-[#D3C9C1] p-4 text-[#4B2E0F]',
         className,
       )}
+      style={{ background: 'rgba(255, 238, 221, 0.3)' }}
     >
       <CanvasToolbar
         activeTool={tool}
