@@ -1,8 +1,6 @@
-// UserCreateModal.stories.tsx
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-// ここは配置に合わせて。となりに置くなら './UserCreateModal'
 import UserCreateModalContent from '@/components/top/UserCreateModal'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 
@@ -20,7 +18,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-// Storybookで常に開いた状態にするためのラッパー
 const Wrapper = (props: UCProps) => (
   <Dialog open>
     <DialogContent className="sm:max-w-[680px]">
@@ -29,7 +26,6 @@ const Wrapper = (props: UCProps) => (
   </Dialog>
 )
 
-// 追加パッケージ不使用：ログは console に出すだけ
 const logOnClose = () => console.log('onClose called')
 const logOnConfirm: UCProps['onConfirm'] = (data) =>
   console.log('onConfirm', data)
