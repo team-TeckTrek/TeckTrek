@@ -94,7 +94,7 @@ export default function DrawingBoard({
   return (
     <div
       className={clsx(
-        'flex items-start gap-6 rounded-[24px] border border-[#D3C9C1] bg-[rgba(255,238,221,0.3)]',
+        'flex items-start gap-6 rounded-[24px] border border-[#D3C9C1]',
         className,
       )}
       style={{
@@ -104,6 +104,7 @@ export default function DrawingBoard({
         paddingRight: 28,
         paddingBottom: 48,
         paddingLeft: 28,
+        background: 'var(--main_color1, #FFDEC5)',
       }}
     >
       <div
