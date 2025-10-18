@@ -43,11 +43,12 @@ interface DrawingBoardProps {
 }
 
 export default function DrawingBoard({
-  width = 640,
-  height = 420,
+  width = 687,
+  height = 368,
   colors,
   className,
 }: DrawingBoardProps) {
+  const framePadding = 16
   const palette = useMemo(() => colors ?? DEFAULT_COLORS, [colors])
   const canvasRef = useRef<DrawingCanvasHandle | null>(null)
   const [tool, setTool] = useState<DrawingTool>('pen')
@@ -97,7 +98,14 @@ export default function DrawingBoard({
         className,
       )}
     >
-      <div className="flex-shrink-0 rounded-[20px] border-[5px] border-[#D9D9D9] bg-white p-4 shadow-[inset_-2px_-2px_5px_rgba(0,0,0,0.25)]">
+      <div
+        className="flex-shrink-0 rounded-[20px] border-[5px] border-[#D9D9D9] bg-white"
+        style={{
+          width: width + framePadding * 2,
+          height: height + framePadding * 2,
+          padding: framePadding,
+        }}
+      >
         <DrawingCanvas
           ref={canvasRef}
           width={width}
@@ -107,7 +115,7 @@ export default function DrawingBoard({
           tool={tool}
           backgroundColor="#FFFFFF"
           onHistoryChange={setHistoryState}
-          className="touch-none"
+          className="h-full w-full touch-none"
         />
       </div>
 
