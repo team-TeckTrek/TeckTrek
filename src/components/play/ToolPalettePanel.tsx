@@ -39,7 +39,7 @@ export default function ToolPalettePanel({
   return (
     <aside
       className={clsx(
-        'flex h-full w-[220px] flex-col gap-6 rounded-2xl border border-[#D3C9C1] bg-[#FFEFDC] p-5 text-[#4B2E0F]',
+        'flex h-[466px] w-[225px] flex-col items-center gap-[10px] rounded-2xl border border-[#D3C9C1] bg-[#FFFFFFB2] p-4 text-[#4B2E0F]',
         className,
       )}
     >
@@ -52,10 +52,10 @@ export default function ToolPalettePanel({
         canUndo={canUndo}
         canRedo={canRedo}
       />
-      <div className="flex flex-col gap-3">
+      <div className="flex w-[193px] flex-col gap-3">
         <StrokeWidthSlider value={strokeWidth} onChange={onStrokeWidthChange} />
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex w-[193px] flex-col gap-3">
         <ColorPalette
           colors={colors}
           selectedColor={selectedColor}
