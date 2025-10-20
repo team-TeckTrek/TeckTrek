@@ -1,6 +1,7 @@
+'use client'
+
 import Sample from '@/components/demo/sample'
-import CardCounter from '@/components/play/CardCounter'
-import ExitButton from '@/components/play/ExitButton'
+import Timer from '@/components/play/Timer'
 
 export default function Page() {
   return (
@@ -18,17 +19,15 @@ export default function Page() {
       </div>
 
       <div className="flex flex-col gap-2 flex-[183] min-w-[183px]">
-        <div className="bg-neutral-200 flex-1 flex items-center justify-center">
-          <CardCounter current={1} total={12} />
-          <div className="bg-neutral-200 flex-1 flex items-center justify-center">
-            <ExitButton />
-          </div>
-          <div className="bg-neutral-200 flex-1 flex">
-            <Sample title="プレイヤーアイコン" />
-          </div>
-          <div className="bg-neutral-200 flex-1 flex">
-            <Sample title="回答するボタン、音楽" />
-          </div>
+        <div className="bg-neutral-200 flex-1 flex flex-col items-center justify-center">
+          <Sample title="タイム、退室" />
+          <Timer initialTime={60} isRunning={true} />
+        </div>
+        <div className="bg-neutral-200 flex-1 flex">
+          <Sample title="プレイヤーアイコン" />
+        </div>
+        <div className="bg-neutral-200 flex-1 flex">
+          <Sample title="回答するボタン、音楽" />
         </div>
       </div>
     </div>
