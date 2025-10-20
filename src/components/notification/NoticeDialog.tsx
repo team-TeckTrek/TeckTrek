@@ -1,14 +1,15 @@
 import React, { useCallback } from 'react'
+
+import { Button } from '@/components/ui/button'
+import type { Notice } from './types'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
+  DialogFooter,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import type { Notice } from './types'
 
 interface Props {
   open: boolean
