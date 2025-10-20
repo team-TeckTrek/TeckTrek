@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
-import { Eraser, Pencil, Redo2, Trash2, Undo2 } from 'lucide-react'
+import { Redo2, Undo2 } from 'lucide-react'
 import clsx from 'clsx'
 import type { DrawingTool } from './DrawingCanvas'
+import EraserIcon from '@/components/icons/EraserIcon'
+import PencilIcon from '@/components/icons/PencilIcon'
+import TrashIcon from '@/components/icons/TrashIcon'
 
 interface CanvasToolbarProps {
   activeTool: DrawingTool
@@ -82,7 +85,7 @@ export default function CanvasToolbar({
           aria-pressed={activeTool === 'pen'}
           aria-label="ペンツール"
         >
-          <Pencil
+          <PencilIcon
             className="text-[#462C05]"
             style={{
               width: '34.481px',
@@ -104,7 +107,14 @@ export default function CanvasToolbar({
           aria-pressed={activeTool === 'eraser'}
           aria-label="消しゴムツール"
         >
-          <Eraser className="h-6 w-6" />
+          <EraserIcon
+            className="text-[#462C05]"
+            style={{
+              width: '33.751px',
+              height: '29.931px',
+              transform: 'translate(0.62px, 0.45px)',
+            }}
+          />
         </button>
 
         <button
@@ -127,7 +137,13 @@ export default function CanvasToolbar({
           }}
           aria-label="全て消す"
         >
-          <Trash2 className="h-6 w-6" />
+          <TrashIcon
+            className="text-[#462C05]"
+            style={{
+              width: '32px',
+              height: '35px',
+            }}
+          />
         </button>
       </div>
     </div>
