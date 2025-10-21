@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Redo2, Undo2 } from 'lucide-react'
 import clsx from 'clsx'
 import type { DrawingTool } from './DrawingCanvas'
 import EraserIcon from '@/components/icons/EraserIcon'
 import PencilIcon from '@/components/icons/PencilIcon'
+import RedoIcon from '@/components/icons/RedoIcon'
 import TrashIcon from '@/components/icons/TrashIcon'
+import UndoIcon from '@/components/icons/UndoIcon'
 
 interface CanvasToolbarProps {
   activeTool: DrawingTool
@@ -45,12 +46,11 @@ export default function CanvasToolbar({
           disabled={!canUndo}
           aria-label="一つ戻す"
         >
-          <Undo2
+          <UndoIcon
             className="text-[#462C05]"
             style={{
-              width: '29.201px',
-              height: '27.328px',
-              transform: 'translate(0.3px, 0.3px)',
+              width: '30px',
+              height: '28px',
             }}
           />
         </button>
@@ -61,12 +61,11 @@ export default function CanvasToolbar({
           disabled={!canRedo}
           aria-label="一つ進める"
         >
-          <Redo2
+          <RedoIcon
             className="text-[#462C05]"
             style={{
-              width: '29.201px',
-              height: '27.328px',
-              transform: 'translate(0.3px, 0.3px)',
+              width: '30px',
+              height: '28px',
             }}
           />
         </button>
