@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 
-interface ColorPaletteProps {
+interface Props {
   colors: string[]
   selectedColor: string
   onSelectColor: (color: string) => void
@@ -13,7 +13,7 @@ export default function ColorPalette({
   selectedColor,
   onSelectColor,
   className,
-}: ColorPaletteProps) {
+}: Props) {
   return (
     <div
       className={clsx(

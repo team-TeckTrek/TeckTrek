@@ -5,7 +5,7 @@ import StrokeWidthSlider from './StrokeWidthSlider'
 import ColorPalette from './ColorPalette'
 import type { DrawingTool } from './DrawingCanvas'
 
-interface ToolPalettePanelProps {
+interface Props {
   tool: DrawingTool
   onToolChange: (tool: DrawingTool) => void
   onUndo: () => void
@@ -35,7 +35,7 @@ export default function ToolPalettePanel({
   selectedColor,
   onSelectColor,
   className,
-}: ToolPalettePanelProps) {
+}: Props) {
   return (
     <aside
       className={clsx(

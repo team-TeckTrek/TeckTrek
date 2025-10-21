@@ -9,7 +9,7 @@ import clsx from 'clsx'
 
 export type DrawingTool = 'pen' | 'eraser'
 
-interface DrawingCanvasProps {
+interface Props {
   width: number
   height: number
   strokeColor: string
@@ -44,7 +44,7 @@ function getDevicePixelRatio() {
   return window.devicePixelRatio ?? 1
 }
 
-const DrawingCanvas = forwardRef<DrawingCanvasHandle, DrawingCanvasProps>(
+const DrawingCanvas = forwardRef<DrawingCanvasHandle, Props>(
   function DrawingCanvas(
     {
       width,
@@ -91,7 +91,7 @@ const DrawingCanvas = forwardRef<DrawingCanvasHandle, DrawingCanvasProps>(
         historyIndexRef.current = historyRef.current.length - 1
         notifyHistoryChange()
       } catch {
-        // noop - getImageData can fail if canvas is tainted
+        // getImageData can fail if the canvas becomes tainted
       }
     }, [notifyHistoryChange])
 

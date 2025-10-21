@@ -7,7 +7,7 @@ import RedoIcon from '@/components/icons/RedoIcon'
 import TrashIcon from '@/components/icons/TrashIcon'
 import UndoIcon from '@/components/icons/UndoIcon'
 
-interface CanvasToolbarProps {
+interface Props {
   activeTool: DrawingTool
   onToolChange: (tool: DrawingTool) => void
   onUndo: () => void
@@ -33,7 +33,7 @@ export default function CanvasToolbar({
   canUndo = false,
   canRedo = false,
   className,
-}: CanvasToolbarProps) {
+}: Props) {
   const [isClearPressed, setIsClearPressed] = useState(false)
 
   return (

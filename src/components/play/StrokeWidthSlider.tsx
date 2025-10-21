@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 
-interface StrokeWidthSliderProps {
+interface Props {
   value: number
   min?: number
   max?: number
@@ -17,7 +17,7 @@ export default function StrokeWidthSlider({
   step = 1,
   onChange,
   className,
-}: StrokeWidthSliderProps) {
+}: Props) {
   return (
     <div className={clsx('flex flex-col items-center gap-2', className)}>
       <div className="flex h-[40px] items-center">

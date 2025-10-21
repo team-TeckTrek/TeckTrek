@@ -35,7 +35,7 @@ const DEFAULT_COLORS = [
   '#F9E1F5',
 ]
 
-interface DrawingBoardProps {
+interface Props {
   width?: number
   height?: number
   colors?: string[]
@@ -47,7 +47,7 @@ export default function DrawingBoard({
   height = 368,
   colors,
   className,
-}: DrawingBoardProps) {
+}: Props) {
   const framePadding = 16
   const palette = useMemo(() => colors ?? DEFAULT_COLORS, [colors])
   const canvasRef = useRef<DrawingCanvasHandle | null>(null)
