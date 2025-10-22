@@ -6,6 +6,8 @@ import PencilIcon from '@/components/icons/PencilIcon'
 import RedoIcon from '@/components/icons/RedoIcon'
 import TrashIcon from '@/components/icons/TrashIcon'
 import UndoIcon from '@/components/icons/UndoIcon'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 interface Props {
   activeTool: DrawingTool
@@ -39,89 +41,68 @@ export default function CanvasToolbar({
   return (
     <div className={clsx('flex flex-col gap-4', className)}>
       <div className="grid h-[40px] w-[193px] grid-cols-2 gap-2">
-        <button
+        <Button
           type="button"
-          className={clsx(historyButtonBase, canUndo ? '' : 'opacity-40')}
+          variant="ghost"
+          className={cn(historyButtonBase, canUndo ? '' : 'opacity-40')}
           onClick={onUndo}
           disabled={!canUndo}
           aria-label="一つ戻す"
         >
-          <UndoIcon
-            className="text-[#462C05]"
-            style={{
-              width: '30px',
-              height: '28px',
-            }}
-          />
-        </button>
-        <button
+          <UndoIcon className="h-[28px] w-[30px] text-[#462C05]" />
+        </Button>
+        <Button
           type="button"
-          className={clsx(historyButtonBase, canRedo ? '' : 'opacity-40')}
+          variant="ghost"
+          className={cn(historyButtonBase, canRedo ? '' : 'opacity-40')}
           onClick={onRedo}
           disabled={!canRedo}
           aria-label="一つ進める"
         >
-          <RedoIcon
-            className="text-[#462C05]"
-            style={{
-              width: '30px',
-              height: '28px',
-            }}
-          />
-        </button>
+          <RedoIcon className="h-[28px] w-[30px] text-[#462C05]" />
+        </Button>
       </div>
 
       <div className="grid h-[59px] w-[193px] grid-cols-3 gap-2">
-        <button
+        <Button
           type="button"
-          className={clsx(
+          variant="ghost"
+          className={cn(
             controlButtonBase,
             activeTool === 'pen'
-              ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)]'
+              ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)] text-white'
               : '',
           )}
           onClick={() => onToolChange('pen')}
           aria-pressed={activeTool === 'pen'}
           aria-label="ペンツール"
         >
-          <PencilIcon
-            className="text-[#462C05]"
-            style={{
-              width: '34.481px',
-              height: '34.492px',
-              transform: 'translate(0.18px, 0.82px)',
-            }}
-          />
-        </button>
+          <PencilIcon className="h-[34px] w-[34px] text-[#462C05]" />
+        </Button>
 
-        <button
+        <Button
           type="button"
-          className={clsx(
+          variant="ghost"
+          className={cn(
             controlButtonBase,
             activeTool === 'eraser'
-              ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)]'
+              ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)] text-white'
               : '',
           )}
           onClick={() => onToolChange('eraser')}
           aria-pressed={activeTool === 'eraser'}
           aria-label="消しゴムツール"
         >
-          <EraserIcon
-            className="text-[#462C05]"
-            style={{
-              width: '33.751px',
-              height: '29.931px',
-              transform: 'translate(0.62px, 0.45px)',
-            }}
-          />
-        </button>
+          <EraserIcon className="h-[30px] w-[30px] text-[#462C05]" />
+        </Button>
 
-        <button
+        <Button
           type="button"
-          className={clsx(
+          variant="ghost"
+          className={cn(
             controlButtonBase,
             isClearPressed
-              ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)]'
+              ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)] text-white'
               : '',
           )}
           onMouseDown={() => setIsClearPressed(true)}
@@ -136,14 +117,8 @@ export default function CanvasToolbar({
           }}
           aria-label="全て消す"
         >
-          <TrashIcon
-            className="text-[#462C05]"
-            style={{
-              width: '32px',
-              height: '35px',
-            }}
-          />
-        </button>
+          <TrashIcon className="h-[32px] w-[32px] text-[#462C05]" />
+        </Button>
       </div>
     </div>
   )
