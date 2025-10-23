@@ -49,7 +49,7 @@ export default function CanvasToolbar({
           disabled={!canUndo}
           aria-label="一つ戻す"
         >
-          <UndoIcon className="size-[29px] h-[27px] translate-x-[0.3px] translate-y-[0.3px] text-[#462C05] transform" />
+          <UndoIcon className="size-[30px] h-[28px] translate-x-[0.3px] translate-y-[0.3px] text-[#462C05] transform" />
         </Button>
         <Button
           type="button"
@@ -59,7 +59,7 @@ export default function CanvasToolbar({
           disabled={!canRedo}
           aria-label="一つ進める"
         >
-          <RedoIcon className="size-[29px] h-[27px] translate-x-[0.3px] translate-y-[0.3px] text-[#462C05] transform" />
+          <RedoIcon className="size-[30px] h-[28px] translate-x-[0.3px] translate-y-[0.3px] text-[#462C05] transform" />
         </Button>
       </div>
 
