@@ -49,7 +49,7 @@ export default function CanvasToolbar({
           disabled={!canUndo}
           aria-label="一つ戻す"
         >
-          <UndoIcon className="h-[28px] w-[30px] text-[#462C05]" />
+          <UndoIcon className="size-[29px] h-[27px] translate-x-[0.3px] translate-y-[0.3px] text-[#462C05] transform" />
         </Button>
         <Button
           type="button"
@@ -59,7 +59,7 @@ export default function CanvasToolbar({
           disabled={!canRedo}
           aria-label="一つ進める"
         >
-          <RedoIcon className="h-[28px] w-[30px] text-[#462C05]" />
+          <RedoIcon className="size-[29px] h-[27px] translate-x-[0.3px] translate-y-[0.3px] text-[#462C05] transform" />
         </Button>
       </div>
 
@@ -77,7 +77,7 @@ export default function CanvasToolbar({
           aria-pressed={activeTool === 'pen'}
           aria-label="ペンツール"
         >
-          <PencilIcon className="h-[34px] w-[34px] text-[#462C05]" />
+          <PencilIcon className="size-[34px] h-[34px] w-[34px] translate-x-[0.18px] translate-y-[0.82px] text-[#462C05] transform" />
         </Button>
 
         <Button
@@ -93,7 +93,7 @@ export default function CanvasToolbar({
           aria-pressed={activeTool === 'eraser'}
           aria-label="消しゴムツール"
         >
-          <EraserIcon className="h-[30px] w-[30px] text-[#462C05]" />
+          <EraserIcon className="size-[34px] h-[30px] w-[34px] translate-x-[0.62px] translate-y-[0.45px] text-[#462C05] transform" />
         </Button>
 
         <Button
@@ -117,7 +117,7 @@ export default function CanvasToolbar({
           }}
           aria-label="全て消す"
         >
-          <TrashIcon className="h-[32px] w-[32px] text-[#462C05]" />
+          <TrashIcon className="size-[31.925674438476562px] h-[31.925674438476562px] w-[28.378379821777344px] translate-x-[1.42px] translate-y-[1.54px] text-[#462C05] transform" />
         </Button>
       </div>
     </div>
