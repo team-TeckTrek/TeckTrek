@@ -125,16 +125,25 @@ const DrawingCanvas = forwardRef<DrawingCanvasHandle, Props>(
       ctx.scale(dpr, dpr)
       ctx.lineCap = 'round'
       ctx.lineJoin = 'round'
-      ctx.strokeStyle = strokeColor
-      ctx.lineWidth = lineWidth
-
       ctx.fillStyle = backgroundColor
       ctx.fillRect(0, 0, width, height)
 
       historyRef.current = []
       historyIndexRef.current = -1
       saveSnapshot()
-    }, [backgroundColor, height, lineWidth, saveSnapshot, strokeColor, width])
+    }, [backgroundColor, height, saveSnapshot, width])
+
+    useEffect(() => {
+      const ctx = contextRef.current
+      if (!ctx) return
+      ctx.lineWidth = lineWidth
+    }, [lineWidth])
+
+    useEffect(() => {
+      const ctx = contextRef.current
+      if (!ctx) return
+      ctx.strokeStyle = strokeColor
+    }, [strokeColor])
 
     const finishStroke = useCallback(
       (event?: React.PointerEvent<HTMLCanvasElement>) => {
