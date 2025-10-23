@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { type CSSProperties } from 'react'
 import clsx from 'clsx'
 
 interface Props {
@@ -17,32 +17,28 @@ export default function ColorPalette({
   return (
     <div
       className={clsx(
-        'grid h-[265px] w-[193px] grid-cols-4 gap-x-2 gap-y-4',
+        'grid h-[265px] w-[193px] grid-cols-4 gap-x-2 gap-y-4 rounded-lg bg-[rgba(255,238,221,0.3)]',
         className,
       )}
-      style={{ background: 'rgba(255, 238, 221, 0.3)' }}
     >
       {colors.map((color) => {
         const isSelected = selectedColor.toLowerCase() === color.toLowerCase()
+        const swatchStyle = {
+          '--swatch-color': color,
+        } as CSSProperties
+
         return (
           <button
             key={color}
             type="button"
-            style={{
-              backgroundColor: color,
-              width: 42,
-              height: 30,
-              borderRadius: 6,
-              boxShadow:
-                '-2px -2px 5px 0px #00000040 inset, 1px 1px 2px 0px #00000080',
-            }}
             onClick={() => onSelectColor(color)}
             className={clsx(
-              'border border-transparent transition-transform hover:scale-105',
+              'h-[30px] w-[42px] rounded-md border border-transparent bg-[color:var(--swatch-color)] shadow-[inset_-2px_-2px_5px_rgba(0,0,0,0.25),1px_1px_2px_rgba(0,0,0,0.5)] transition-transform hover:scale-105',
               isSelected ? 'ring-2 ring-offset-2 ring-[#2556EB]' : '',
             )}
             aria-label={`色 ${color}`}
             aria-pressed={isSelected}
+            style={swatchStyle}
           />
         )
       })}

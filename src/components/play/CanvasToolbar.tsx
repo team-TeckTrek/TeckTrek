@@ -6,7 +6,7 @@ import PencilIcon from '@/components/icons/PencilIcon'
 import RedoIcon from '@/components/icons/RedoIcon'
 import TrashIcon from '@/components/icons/TrashIcon'
 import UndoIcon from '@/components/icons/UndoIcon'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -20,11 +20,17 @@ interface Props {
   className?: string
 }
 
-const controlButtonBase =
-  'flex h-[59px] w-[59px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-[rgba(255,255,255,0.7)] px-3 text-[#4B2E0F] shadow-[1px_1px_2px_rgba(0,0,0,0.5)] transition-colors hover:bg-[rgba(255,255,255,0.7)]'
+const historyButtonClass = buttonVariants({
+  variant: 'ghost',
+  className:
+    'flex h-[40px] w-[92px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-[rgba(255,255,255,0.7)] text-[#4B2E0F] shadow-[1px_1px_2px_rgba(0,0,0,0.5)] transition-colors hover:bg-[rgba(255,255,255,0.7)]',
+})
 
-const historyButtonBase =
-  'flex h-[40px] w-[92px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-[rgba(255,255,255,0.7)] text-[#4B2E0F] shadow-[1px_1px_2px_rgba(0,0,0,0.5)] transition-colors hover:bg-[rgba(255,255,255,0.7)]'
+const controlButtonClass = buttonVariants({
+  variant: 'ghost',
+  className:
+    'flex h-[59px] w-[59px] items-center justify-center rounded-lg border-[3px] border-[#4B2E0F] bg-[rgba(255,255,255,0.7)] px-3 text-[#4B2E0F] shadow-[1px_1px_2px_rgba(0,0,0,0.5)] transition-colors hover:bg-[rgba(255,255,255,0.7)]',
+})
 
 export default function CanvasToolbar({
   activeTool,
@@ -44,7 +50,7 @@ export default function CanvasToolbar({
         <Button
           type="button"
           variant="ghost"
-          className={cn(historyButtonBase, canUndo ? '' : 'opacity-40')}
+          className={cn(historyButtonClass, canUndo ? '' : 'opacity-40')}
           onClick={onUndo}
           disabled={!canUndo}
           aria-label="一つ戻す"
@@ -54,7 +60,7 @@ export default function CanvasToolbar({
         <Button
           type="button"
           variant="ghost"
-          className={cn(historyButtonBase, canRedo ? '' : 'opacity-40')}
+          className={cn(historyButtonClass, canRedo ? '' : 'opacity-40')}
           onClick={onRedo}
           disabled={!canRedo}
           aria-label="一つ進める"
@@ -68,7 +74,7 @@ export default function CanvasToolbar({
           type="button"
           variant="ghost"
           className={cn(
-            controlButtonBase,
+            controlButtonClass,
             activeTool === 'pen'
               ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)] text-white'
               : '',
@@ -84,7 +90,7 @@ export default function CanvasToolbar({
           type="button"
           variant="ghost"
           className={cn(
-            controlButtonBase,
+            controlButtonClass,
             activeTool === 'eraser'
               ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)] text-white'
               : '',
@@ -100,7 +106,7 @@ export default function CanvasToolbar({
           type="button"
           variant="ghost"
           className={cn(
-            controlButtonBase,
+            controlButtonClass,
             isClearPressed
               ? 'bg-[var(--btn_color,#4F7EDE)] hover:bg-[var(--btn_color,#4F7EDE)] text-white'
               : '',
