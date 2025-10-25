@@ -23,10 +23,10 @@ export default function Page() {
           <Sample title="タイム、退室" />
           <Timer initialTime={60} isRunning={true} />
         </div>
-        <div className="bg-neutral-200 flex-1 flex items-center justify-center">
+        <div className="bg-neutral-200 flex-1 flex">
           <Sample title="プレイヤーアイコン" />
         </div>
-        <div className="bg-neutral-200 flex-1 flex items-center justify-center">
+        <div className="bg-neutral-200 flex-1 flex">
           <Sample title="回答するボタン、音楽" />
         </div>
       </div>
