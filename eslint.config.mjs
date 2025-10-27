@@ -20,6 +20,7 @@ const eslintConfig = [
       'node_modules/**',
       '.next/**',
       'dist/**',
+      'public/mockServiceWorker.js',
       'build/**',
       'coverage/**',
     ],
