@@ -1,13 +1,14 @@
+/* eslint-disable */
 /* tslint:disable */
 
 /**
-Mock Service Worker.
-@see https://github.com/mswjs/msw
-- Please do NOT modify this file.
+ * Mock Service Worker.
+ * @see https://github.com/mswjs/msw
+ * - Please do NOT modify this file.
  */
 
-const PACKAGE_VERSION = '2.11.1'
-const INTEGRITY_CHECKSUM = 'f5825c521429caf22a4dd13b66e243af'
+const PACKAGE_VERSION = '2.11.6'
+const INTEGRITY_CHECKSUM = '4db4a41e972cec1b64cc569c66952d82'
 const IS_MOCKED_RESPONSE = Symbol('isMockedResponse')
 const activeClientIds = new Set()
 
@@ -70,11 +71,6 @@ addEventListener('message', async function (event) {
       break
     }
 
-    case 'MOCK_DEACTIVATE': {
-      activeClientIds.delete(clientId)
-      break
-    }
-
     case 'CLIENT_CLOSED': {
       activeClientIds.delete(clientId)
 
@@ -93,6 +89,8 @@ addEventListener('message', async function (event) {
 })
 
 addEventListener('fetch', function (event) {
+  const requestInterceptedAt = Date.now()
+
   // Bypass navigation requests.
   if (event.request.mode === 'navigate') {
     return
@@ -109,23 +107,29 @@ addEventListener('fetch', function (event) {
 
   // Bypass all requests when there are no active clients.
   // Prevents the self-unregistered worked from handling requests
-  // after it's been deleted (still remains active until the next reload).
+  // after it's been terminated (still remains active until the next reload).
   if (activeClientIds.size === 0) {
     return
   }
 
   const requestId = crypto.randomUUID()
-  event.respondWith(handleRequest(event, requestId))
+  event.respondWith(handleRequest(event, requestId, requestInterceptedAt))
 })
 
 /**
-@param {FetchEvent} event
-@param {string} requestId
+ * @param {FetchEvent} event
+ * @param {string} requestId
+ * @param {number} requestInterceptedAt
  */
-async function handleRequest(event, requestId) {
+async function handleRequest(event, requestId, requestInterceptedAt) {
   const client = await resolveMainClient(event)
   const requestCloneForEvents = event.request.clone()
-  const response = await getResponse(event, client, requestId)
+  const response = await getResponse(
+    event,
+    client,
+    requestId,
+    requestInterceptedAt,
+  )
 
   // Send back the response clone for the "response:*" life-cycle events.
   // Ensure MSW is active and ready to handle the message, otherwise
@@ -163,12 +167,12 @@ async function handleRequest(event, requestId) {
 }
 
 /**
-Resolve the main client for the given event.
-Client that issues a request doesn't necessarily equal the client
-that registered the worker. It's with the latter the worker should
-communicate with during the response resolving phase.
-@param {FetchEvent} event
-@returns {Promise<Client | undefined>}
+ * Resolve the main client for the given event.
+ * Client that issues a request doesn't necessarily equal the client
+ * that registered the worker. It's with the latter the worker should
+ * communicate with during the response resolving phase.
+ * @param {FetchEvent} event
+ * @returns {Promise<Client | undefined>}
  */
 async function resolveMainClient(event) {
   const client = await self.clients.get(event.clientId)
@@ -198,12 +202,13 @@ async function resolveMainClient(event) {
 }
 
 /**
-@param {FetchEvent} event
-@param {Client | undefined} client
-@param {string} requestId
-@returns {Promise<Response>}
+ * @param {FetchEvent} event
+ * @param {Client | undefined} client
+ * @param {string} requestId
+ * @param {number} requestInterceptedAt
+ * @returns {Promise<Response>}
  */
-async function getResponse(event, client, requestId) {
+async function getResponse(event, client, requestId, requestInterceptedAt) {
   // Clone the request because it might've been already used
   // (i.e. its body has been read and sent to the client).
   const requestClone = event.request.clone()
@@ -254,6 +259,7 @@ async function getResponse(event, client, requestId) {
       type: 'REQUEST',
       payload: {
         id: requestId,
+        interceptedAt: requestInterceptedAt,
         ...serializedRequest,
       },
     },
@@ -274,10 +280,10 @@ async function getResponse(event, client, requestId) {
 }
 
 /**
-@param {Client} client
-@param {any} message
-@param {Array<Transferable>} transferrables
-@returns {Promise<any>}
+ * @param {Client} client
+ * @param {any} message
+ * @param {Array<Transferable>} transferrables
+ * @returns {Promise<any>}
  */
 function sendToClient(client, message, transferrables = []) {
   return new Promise((resolve, reject) => {
@@ -299,8 +305,8 @@ function sendToClient(client, message, transferrables = []) {
 }
 
 /**
-@param {Response} response
-@returns {Response}
+ * @param {Response} response
+ * @returns {Response}
  */
 function respondWithMock(response) {
   // Setting response status code to 0 is a no-op.
@@ -322,7 +328,7 @@ function respondWithMock(response) {
 }
 
 /**
-@param {Request} request
+ * @param {Request} request
  */
 async function serializeRequest(request) {
   return {
