@@ -1,25 +1,29 @@
 'use client'
 
-import type { SVGProps } from 'react'
+import clsx from 'clsx'
+import Image from 'next/image'
 import React from 'react'
 
-export default function CatIcon(props: SVGProps<SVGSVGElement>) {
+type Props = {
+  className?: string
+}
+
+export default function CatIcon({ className }: Props) {
   return (
-    <svg
-      viewBox="0 0 80 80"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      {...props}
+    <div
+      className={clsx(
+        'relative overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[var(--green_light,#EFFFDF)]',
+        className,
+      )}
     >
-      <circle
-        cx="40"
-        cy="40"
-        r="38.5"
-        fill="#D6FFFD"
-        stroke="var(--green,#60BD00)"
-        strokeWidth="3"
+      <Image
+        src="/image/cat.png"
+        alt="cat"
+        fill
+        sizes="80px"
+        className="object-cover"
+        priority
       />
-    </svg>
+    </div>
   )
 }
