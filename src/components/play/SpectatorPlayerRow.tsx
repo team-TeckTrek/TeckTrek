@@ -2,12 +2,14 @@
 
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
+import Image from 'next/image'
 import CatIcon from './icons/CatIcon'
 
 export type SpectatorPlayer = {
   id: string
   name: string
   isCurrent?: boolean
+  iconUrl?: string
 }
 
 interface Props {
@@ -147,7 +149,19 @@ export default function SpectatorPlayerRow({
                 }}
                 className="flex size-[80px] items-center justify-center"
               >
-                <CatIcon className="size-full" />
+                {player.iconUrl ? (
+                  <div className="relative size-full overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[var(--green_light,#EFFFDF)]">
+                    <Image
+                      src={player.iconUrl}
+                      alt={`${player.name} icon`}
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <CatIcon className="size-full" />
+                )}
               </div>
               <span className="mt-[8px] inline-flex h-[25px] w-[82px] items-center justify-center rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[var(--green_light,#EFFFDF)] px-4 text-[14px] font-bold leading-none text-[var(--green,#60BD00)]">
                 {player.name}

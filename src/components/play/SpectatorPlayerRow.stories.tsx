@@ -20,9 +20,9 @@ type Story = StoryObj<typeof SpectatorPlayerRow>
 
 const SAMPLE_PLAYERS: SpectatorPlayer[] = [
   { id: 'player1', name: 'player1' },
-  { id: 'player2', name: 'player2' },
+  { id: 'player2', name: 'player2', iconUrl: '/image/cat.png' },
   { id: 'player3', name: 'player3' },
-  { id: 'player4', name: 'player4' },
+  { id: 'player4', name: 'player4', iconUrl: '/image/cat.png' },
 ]
 
 export const Default: Story = {
