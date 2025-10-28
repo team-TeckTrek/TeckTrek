@@ -29,6 +29,7 @@ export default function SpectatorMessageList({
             type="button"
             className="h-[25px] w-[177px] rounded-full bg-[#55C500] px-2 text-[14px] font-bold leading-none text-white transition-transform hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2556EB]"
             onClick={() => onSelect(message)}
+            style={{ boxShadow: '1px 1px 2px 0px #00000080' }}
           >
             {message}
           </button>
