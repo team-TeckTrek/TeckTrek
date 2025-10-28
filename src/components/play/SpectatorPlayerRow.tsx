@@ -16,6 +16,7 @@ interface Props {
   className?: string
 }
 
+const ICON_CONTAINER_WIDTH = 114
 const ARROW_WIDTH = 16
 const ARROW_HEIGHT = 32
 const ARROW_TOP = 48.5
@@ -47,7 +48,7 @@ export default function SpectatorPlayerRow({
   >([])
 
   useLayoutEffect(() => {
-    const updatePositions = () => {
+    const update = () => {
       const container = containerRef.current
       if (!container) return
 
@@ -61,64 +62,69 @@ export default function SpectatorPlayerRow({
 
         const currentRect = current.getBoundingClientRect()
         const nextRect = nextItem.getBoundingClientRect()
-        const currentRight = currentRect.left - parentLeft + currentRect.width
-        const gap = nextRect.left - currentRect.left - currentRect.width
+        const currentRight =
+          currentRect.left - parentLeft + ICON_CONTAINER_WIDTH
+        const gap = nextRect.left - currentRect.left - ICON_CONTAINER_WIDTH
         const left = currentRight + (gap - ARROW_WIDTH) / 2
+
         next.push({ left, key: `arrow-${i}` })
       }
 
       setArrowPositions(next)
     }
 
-    updatePositions()
-    window.addEventListener('resize', updatePositions)
-    return () => window.removeEventListener('resize', updatePositions)
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
   }, [players.length])
 
   return (
     <div
-      ref={containerRef}
       className={clsx(
         'flex h-[129px] w-[719px] items-end gap-[121px] border border-[#D3C9C1] px-[17px] pt-[16px]',
         className,
       )}
-      style={{ position: 'relative' }}
     >
-      {players.map((player, index) => {
-        const reaction = reactions[player.id]
+      <div
+        ref={containerRef}
+        className="relative flex h-full w-full items-end justify-between gap-[121px]"
+      >
+        {players.map((player, index) => {
+          const reaction = reactions[player.id]
 
-        return (
-          <div
-            key={player.id}
-            ref={(node) => {
-              itemRefs.current[index] = node
-            }}
-            className="flex h-full w-[80px] flex-col items-center justify-end"
-          >
-            {reaction ? (
-              <div className="absolute -top-16 flex min-w-[96px] max-w-[128px] justify-center rounded-full border border-[#6E4A2B] bg-[#FFFFFFE0] px-4 py-1 text-xs font-semibold text-[#6E4A2B] shadow-sm">
-                {reaction}
+          return (
+            <div
+              key={player.id}
+              ref={(node) => {
+                itemRefs.current[index] = node
+              }}
+              className="relative flex h-full w-[114px] flex-col items-start justify-end"
+            >
+              {reaction ? (
+                <div className="absolute -top-16 flex min-w-[96px] max-w-[128px] justify-center rounded-full border border-[#6E4A2B] bg-[#FFFFFFE0] px-4 py-1 text-xs font-semibold text-[#6E4A2B] shadow-sm">
+                  {reaction}
+                </div>
+              ) : null}
+              <div className="flex size-[80px] items-center justify-center">
+                <CatIcon className="size-full" />
               </div>
-            ) : null}
-            <div className="flex size-[80px] items-center justify-center">
-              <CatIcon className="size-full" />
+              <span className="mt-[8px] inline-flex h-[25px] w-[82px] items-center justify-center rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[var(--green_light,#EFFFDF)] px-4 text-[14px] font-bold leading-none text-[var(--green,#60BD00)]">
+                {player.name}
+              </span>
             </div>
-            <span className="mt-[8px] inline-flex h-[25px] w-[82px] items-center justify-center rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[var(--green_light,#EFFFDF)] px-4 text-[14px] font-bold leading-none text-[var(--green,#60BD00)]">
-              {player.name}
-            </span>
-          </div>
-        )
-      })}
+          )
+        })}
 
-      {arrowPositions.map(({ left, key }) => (
-        <div
-          key={key}
-          className="pointer-events-none absolute flex h-[32px] w-[16px] items-center justify-center"
-          style={{ left, top: ARROW_TOP }}
-        >
-          <Arrow />
-        </div>
-      ))}
+        {arrowPositions.map(({ left, key }) => (
+          <div
+            key={key}
+            className="pointer-events-none absolute flex h-[32px] w-[16px] items-center justify-center"
+            style={{ left, top: ARROW_TOP }}
+          >
+            <Arrow />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
