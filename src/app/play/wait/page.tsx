@@ -13,8 +13,8 @@ const MESSAGES = [
   'むずかしい…',
   'さすが！',
   'おてあげ',
-  'おてあげ',
-  'おてあげ',
+  'Sample1',
+  'Sample2',
 ]
 
 export default function WaitPage() {
