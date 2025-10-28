@@ -22,7 +22,7 @@ export default function SpectatorMessageList({
       )}
       style={{ background: '#FFFFFFB2' }}
     >
-      <div className="flex h-full flex-col justify-between gap-[10px] items-center">
+      <div className="flex h-full flex-col items-center justify-center gap-[33.43px]">
         {messages.map((message, index) => (
           <button
             key={`${message}-${index}`}
