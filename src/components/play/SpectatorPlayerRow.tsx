@@ -19,7 +19,7 @@ interface Props {
 const ICON_CONTAINER_WIDTH = 114
 const ARROW_WIDTH = 16
 const ARROW_HEIGHT = 32
-const ARROW_TOP = 48.5
+const FALLBACK_ARROW_TOP = 48.5
 
 function Arrow() {
   return (
@@ -43,8 +43,9 @@ export default function SpectatorPlayerRow({
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
+  const iconRefs = useRef<(HTMLDivElement | null)[]>([])
   const [arrowPositions, setArrowPositions] = useState<
-    Array<{ left: number; key: string }>
+    Array<{ left: number; top: number; key: string }>
   >([])
 
   useLayoutEffect(() => {
@@ -52,12 +53,15 @@ export default function SpectatorPlayerRow({
       const container = containerRef.current
       if (!container) return
 
-      const parentLeft = container.getBoundingClientRect().left
-      const next: Array<{ left: number; key: string }> = []
+      const parentRect = container.getBoundingClientRect()
+      const parentLeft = parentRect.left
+      const parentTop = parentRect.top
+      const placements: Array<{ left: number; top: number; key: string }> = []
 
       for (let i = 0; i < players.length - 1; i += 1) {
         const current = itemRefs.current[i]
         const nextItem = itemRefs.current[i + 1]
+        const icon = iconRefs.current[i]
         if (!current || !nextItem) continue
 
         const currentRect = current.getBoundingClientRect()
@@ -67,10 +71,17 @@ export default function SpectatorPlayerRow({
         const gap = nextRect.left - currentRect.left - ICON_CONTAINER_WIDTH
         const left = currentRight + (gap - ARROW_WIDTH) / 2
 
-        next.push({ left, key: `arrow-${i}` })
+        let top = FALLBACK_ARROW_TOP
+        if (icon) {
+          const iconRect = icon.getBoundingClientRect()
+          top =
+            iconRect.top - parentTop + iconRect.height / 2 - ARROW_HEIGHT / 2
+        }
+
+        placements.push({ left, top, key: `arrow-${i}` })
       }
 
-      setArrowPositions(next)
+      setArrowPositions(placements)
     }
 
     update()
@@ -105,7 +116,12 @@ export default function SpectatorPlayerRow({
                   {reaction}
                 </div>
               ) : null}
-              <div className="flex size-[80px] items-center justify-center">
+              <div
+                ref={(node) => {
+                  iconRefs.current[index] = node
+                }}
+                className="flex size-[80px] items-center justify-center"
+              >
                 <CatIcon className="size-full" />
               </div>
               <span className="mt-[8px] inline-flex h-[25px] w-[82px] items-center justify-center rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[var(--green_light,#EFFFDF)] px-4 text-[14px] font-bold leading-none text-[var(--green,#60BD00)]">
@@ -115,11 +131,11 @@ export default function SpectatorPlayerRow({
           )
         })}
 
-        {arrowPositions.map(({ left, key }) => (
+        {arrowPositions.map(({ left, top, key }) => (
           <div
             key={key}
             className="pointer-events-none absolute flex h-[32px] w-[16px] items-center justify-center"
-            style={{ left, top: ARROW_TOP }}
+            style={{ left, top }}
           >
             <Arrow />
           </div>
