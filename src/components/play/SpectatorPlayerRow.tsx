@@ -16,7 +16,6 @@ interface Props {
   className?: string
 }
 
-const ICON_CONTAINER_WIDTH = 114
 const ARROW_WIDTH = 16
 const ARROW_HEIGHT = 32
 const FALLBACK_ARROW_TOP = 48.5
@@ -66,10 +65,9 @@ export default function SpectatorPlayerRow({
 
         const currentRect = current.getBoundingClientRect()
         const nextRect = nextItem.getBoundingClientRect()
-        const currentRight =
-          currentRect.left - parentLeft + ICON_CONTAINER_WIDTH
-        const gap = nextRect.left - currentRect.left - ICON_CONTAINER_WIDTH
-        const left = currentRight + (gap - ARROW_WIDTH) / 2
+        const currentRight = currentRect.left - parentLeft + currentRect.width
+        const nextLeft = nextRect.left - parentLeft
+        const left = (currentRight + nextLeft) / 2 - ARROW_WIDTH / 2
 
         let top = FALLBACK_ARROW_TOP
         if (icon) {
