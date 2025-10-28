@@ -19,6 +19,8 @@ interface Props {
 const ARROW_WIDTH = 16
 const ARROW_HEIGHT = 32
 const FALLBACK_ARROW_TOP = 48.5
+const FALLBACK_ICON_TOP = 16
+const REACTION_OFFSET_FROM_ICON = -16
 
 function Arrow() {
   return (
@@ -46,6 +48,7 @@ export default function SpectatorPlayerRow({
   const [arrowPositions, setArrowPositions] = useState<
     Array<{ left: number; top: number; key: string }>
   >([])
+  const [reactionPositions, setReactionPositions] = useState<number[]>([])
 
   useLayoutEffect(() => {
     const update = () => {
@@ -56,11 +59,23 @@ export default function SpectatorPlayerRow({
       const parentLeft = parentRect.left
       const parentTop = parentRect.top
       const placements: Array<{ left: number; top: number; key: string }> = []
+      const reactionTops: number[] = []
+
+      const iconMetrics = iconRefs.current.map((icon) => {
+        if (!icon) return null
+        const rect = icon.getBoundingClientRect()
+        return {
+          top: rect.top - parentTop,
+          left: rect.left - parentLeft,
+          width: rect.width,
+          height: rect.height,
+        }
+      })
 
       for (let i = 0; i < players.length - 1; i += 1) {
         const current = itemRefs.current[i]
         const nextItem = itemRefs.current[i + 1]
-        const icon = iconRefs.current[i]
+        const icon = iconMetrics[i]
         if (!current || !nextItem) continue
 
         const currentRect = current.getBoundingClientRect()
@@ -71,15 +86,20 @@ export default function SpectatorPlayerRow({
 
         let top = FALLBACK_ARROW_TOP
         if (icon) {
-          const iconRect = icon.getBoundingClientRect()
-          top =
-            iconRect.top - parentTop + iconRect.height / 2 - ARROW_HEIGHT / 2
+          top = icon.top + icon.height / 2 - ARROW_HEIGHT / 2
         }
 
         placements.push({ left, top, key: `arrow-${i}` })
       }
 
+      for (let i = 0; i < players.length; i += 1) {
+        const icon = iconMetrics[i]
+        const iconTop = icon?.top ?? FALLBACK_ICON_TOP
+        reactionTops[i] = iconTop + REACTION_OFFSET_FROM_ICON
+      }
+
       setArrowPositions(placements)
+      setReactionPositions(reactionTops)
     }
 
     update()
@@ -110,7 +130,14 @@ export default function SpectatorPlayerRow({
               className="relative flex h-full w-[114px] flex-col items-start justify-end"
             >
               {reaction ? (
-                <div className="absolute -top-16 flex min-w-[96px] max-w-[128px] justify-center rounded-full border border-[#6E4A2B] bg-[#FFFFFFE0] px-4 py-1 text-xs font-semibold text-[#6E4A2B] shadow-sm">
+                <div
+                  className="absolute left-1/2 z-10 flex -translate-x-1/2 items-center justify-center rounded-full bg-[var(--green,#60BD00)] px-[20px] py-[6px] text-[14px] font-bold leading-none text-white shadow-sm"
+                  style={{
+                    top:
+                      reactionPositions[index] ??
+                      FALLBACK_ICON_TOP + REACTION_OFFSET_FROM_ICON,
+                  }}
+                >
                   {reaction}
                 </div>
               ) : null}
