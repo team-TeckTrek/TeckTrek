@@ -131,7 +131,7 @@ export default function SpectatorPlayerRow({
             >
               {reaction ? (
                 <div
-                  className="absolute left-1/2 z-10 flex -translate-x-1/2 items-center justify-center rounded-full bg-[var(--green,#60BD00)] px-[20px] py-[6px] text-[14px] font-bold leading-none text-white shadow-sm"
+                  className="absolute left-1/2 z-10 flex -translate-x-1/2 items-center justify-center whitespace-nowrap rounded-full bg-[var(--green,#60BD00)] px-[20px] py-[6px] text-[14px] font-bold leading-none text-white shadow-sm"
                   style={{
                     top:
                       reactionPositions[index] ??
