@@ -21,20 +21,26 @@ export default function SpectatorPlayerRow({
   reactions,
   className,
 }: Props) {
+  const iconSize = 80
+  const gap = 121
+  const baseLeft = 17
+
   return (
     <div
       className={clsx(
-        'flex h-[129px] w-[719px] items-end justify-between rounded-2xl border border-[#D3C9C1] bg-[rgba(255,238,221,0.6)] px-[17px] pt-[16px]',
+        'relative h-[129px] w-[719px] rounded-2xl border border-[#D3C9C1] bg-transparent',
         className,
       )}
     >
-      {players.map((player) => {
+      {players.map((player, index) => {
         const reaction = reactions[player.id]
+        const left = baseLeft + index * (iconSize + gap)
 
         return (
           <div
             key={player.id}
-            className="relative flex h-full w-[114px] flex-col items-start justify-end"
+            className="absolute flex h-full w-[80px] flex-col items-center"
+            style={{ left, bottom: 23 }}
           >
             {reaction ? (
               <div className="absolute -top-16 flex min-w-[96px] max-w-[128px] justify-center rounded-full border border-[#6E4A2B] bg-[#FFFFFFE0] px-4 py-1 text-xs font-semibold text-[#6E4A2B] shadow-sm">
