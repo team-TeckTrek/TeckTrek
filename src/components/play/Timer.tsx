@@ -27,9 +27,8 @@ export default function Timer({ initialTime, isRunning, onComplete }: Props) {
 
     return () => clearInterval(time)
   }, [isRunning, timeLeft, onComplete])
-
   return (
-    <div className="flex items-end justify-center gap-3 leading-none">
+    <div className="flex items-end justify-center gap-3 leading-none whitespace-nowrap">
       <span className="text-[40px] -translate-y-[100px] text-timer-label">
         残り
       </span>

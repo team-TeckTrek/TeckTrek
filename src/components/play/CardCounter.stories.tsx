@@ -1,17 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import CardCounter from './CardCounter'
 
-const meta: Meta<typeof CardCounter> = {
+const meta = {
   title: 'Play/CardCounter',
   component: CardCounter,
-}
-
-export default meta
-type Story = StoryObj<typeof CardCounter>
-
-export const Default: Story = {
   args: {
     current: 3,
     total: 10,
   },
-}
+} satisfies Meta<typeof CardCounter>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {}
