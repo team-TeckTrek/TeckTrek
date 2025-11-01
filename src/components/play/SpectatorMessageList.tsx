@@ -1,7 +1,9 @@
 'use client'
 
-import React from 'react'
 import clsx from 'clsx'
+import React from 'react'
+
+import { Button } from '@/components/ui/button'
 
 interface Props {
   messages: string[]
@@ -24,15 +26,16 @@ export default function SpectatorMessageList({
     >
       <div className="flex h-full flex-col items-center justify-center gap-[33.43px]">
         {messages.map((message, index) => (
-          <button
+          <Button
             key={`${message}-${index}`}
             type="button"
-            className="h-[25px] w-[177px] rounded-t-full rounded-bl-full rounded-br-none bg-[#55C500] px-2 text-[14px] font-bold leading-none text-white transition-transform hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2556EB]"
+            variant="ghost"
+            className="h-[25px] w-[177px] rounded-t-full rounded-bl-full rounded-br-none bg-[#55C500] px-2 py-0 text-[14px] font-bold leading-none text-white shadow-none transition-transform hover:scale-[1.02] hover:bg-[#55C500] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2556EB]"
             onClick={() => onSelect(message)}
             style={{ boxShadow: '1px 1px 2px 0px #00000080' }}
           >
             {message}
-          </button>
+          </Button>
         ))}
       </div>
     </div>
