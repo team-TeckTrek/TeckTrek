@@ -112,7 +112,7 @@ export default function SpectatorPlayerRow({
   return (
     <div
       className={clsx(
-        'flex h-[129px] w-[719px] items-end gap-[121px] border border-[#D3C9C1] px-[17px] pt-[16px]',
+        'flex h-[129px] w-[719px] items-end gap-[121px]  px-[17px] pt-[16px]',
         className,
       )}
     >
