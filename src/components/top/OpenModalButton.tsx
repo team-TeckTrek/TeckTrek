@@ -1,7 +1,11 @@
 'use client'
 
 import { useState, type ComponentProps } from 'react'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -32,14 +36,14 @@ export default function OpenModalButton({
   const defaultContentClass = 'w-[92vw] sm:max-w-[680px]'
 
   return (
-    <Dialog
+    <AlertDialog
       open={open}
       onOpenChange={(v) => {
         setOpen(v)
         onOpenChange?.(v)
       }}
     >
-      <DialogTrigger asChild>
+      <AlertDialogTrigger asChild>
         <Button
           variant={variant ?? 'default'}
           className={cn(defaultBtnClass, className)}
@@ -47,11 +51,11 @@ export default function OpenModalButton({
         >
           {label ?? children}
         </Button>
-      </DialogTrigger>
+      </AlertDialogTrigger>
 
-      <DialogContent className={cn(defaultContentClass, contentClassName)}>
+      <AlertDialogContent className={cn(defaultContentClass, contentClassName)}>
         {renderContent(close)}
-      </DialogContent>
-    </Dialog>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }

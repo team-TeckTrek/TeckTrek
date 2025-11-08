@@ -1,7 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import {
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -60,11 +63,11 @@ export default function UserCreateModalContent({
   return (
     <>
       <div className="mx-auto my-10">
-        <DialogHeader>
-          <DialogTitle className="text-[20px] font-thin">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="text-[20px] font-thin">
             アイコンを選択してください
-          </DialogTitle>
-        </DialogHeader>
+          </AlertDialogTitle>
+        </AlertDialogHeader>
 
         <div className="mt-4 grid grid-cols-4 gap-y-4 gap-x-17">
           {icons.map((emj, i) => {
