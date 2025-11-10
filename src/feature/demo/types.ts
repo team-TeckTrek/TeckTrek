@@ -1,4 +1,8 @@
-export type DemoData = {
+export type Demo = {
   id: string
-  name: string
+  label: string
+}
+
+export type DemoData = {
+  demo: Demo[]
 }
