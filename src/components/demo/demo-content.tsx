@@ -1,14 +1,14 @@
 import { DemoData } from '@/feature/demo/types'
 import { Suspense, use } from 'react'
-import Sample from './sample'
 import { isError, SerializedError } from '@/feature/fetcher/errors'
 import { handleFetchErrors } from '@/utils'
+import Demo from './demo'
 
 interface Props {
   demoDataPromise: Promise<DemoData | SerializedError>
 }
 
-export default function SampleContent({ demoDataPromise }: Props) {
+export default function DemoContent({ demoDataPromise }: Props) {
   const demoData = use(demoDataPromise)
 
   if (isError(demoData)) {
@@ -18,7 +18,7 @@ export default function SampleContent({ demoDataPromise }: Props) {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Sample items={demoData} />
+      <Demo demoData={demoData} />
     </Suspense>
   )
 }

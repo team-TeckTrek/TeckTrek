@@ -1,23 +1,20 @@
-'use client'
+import { DemoData } from '@/feature/demo/types'
 
-import { useCallback, useState } from 'react'
-import Timer from '../common/Timer'
+interface Props {
+  demoData: DemoData
+}
 
-export default function Demo() {
-  const [timeUp, setTimeUp] = useState(false)
-
-  const onTimeUp = useCallback((flag: boolean) => {
-    if (flag) setTimeUp(true)
-  }, [])
-
+export default function Demo({ demoData }: Props) {
   return (
-    <div>
-      <Timer
-        time={3}
-        className="text-2xl font-bold text-center text-red-500 text-[48px]"
-        onTimeUp={onTimeUp}
-      />
-      {timeUp && <div className="mt-2 text-center">time up</div>}
+    <div className="flex flex-col gap-4">
+      {demoData.demo.map((demo) => (
+        <div
+          key={demo.id}
+          className="flex-1 flex items-center justify-center ring-2 ring-offset-2"
+        >
+          <h2 className="text-lg font-bold">{demo.label}</h2>
+        </div>
+      ))}
     </div>
   )
 }
