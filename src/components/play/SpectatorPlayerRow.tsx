@@ -150,7 +150,7 @@ export default function SpectatorPlayerRow({
                 className="flex size-[80px] items-center justify-center"
               >
                 {player.iconUrl ? (
-                  <div className="relative size-full overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[var(--green_light,#EFFFDF)]">
+                  <div className="relative size-full overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[#D6FFFD]">
                     <Image
                       src={player.iconUrl}
                       alt={`${player.name} icon`}
