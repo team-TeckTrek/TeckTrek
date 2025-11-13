@@ -22,7 +22,7 @@ export default function CatIcon({ className }: Props) {
         alt="cat"
         fill
         sizes="80px"
-        className="origin-center h-full w-full object-contain object-center"
+        className="origin-center h-full w-full object-contain object-center -translate-x-[4%]"
         priority
       />
     </div>
