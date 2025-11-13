@@ -150,13 +150,13 @@ export default function SpectatorPlayerRow({
                 className="flex size-[80px] items-center justify-center"
               >
                 {player.iconUrl ? (
-                  <div className="relative size-full overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[#D6FFFD]">
+                  <div className="relative size-full overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[#D6FFFD] p-1 sm:p-1.5">
                     <Image
                       src={player.iconUrl}
                       alt={`${player.name} icon`}
                       fill
                       sizes="80px"
-                      className="object-cover"
+                      className="origin-center h-full w-full object-contain object-center"
                     />
                   </div>
                 ) : (
