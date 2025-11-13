@@ -14,6 +14,7 @@ export default function CatIcon({ className }: Props) {
       className={clsx(
         'relative overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[#D6FFFD]',
         className,
+        (className = 'p-1 sm:p-1.5'),
       )}
     >
       <Image
@@ -21,7 +22,7 @@ export default function CatIcon({ className }: Props) {
         alt="cat"
         fill
         sizes="80px"
-        className="object-cover"
+        className="origin-center h-full w-full object-contain object-center"
         priority
       />
     </div>
