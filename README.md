@@ -1,3 +1,9 @@
+## 手順
+https://www.notion.so/22d83592099280ffbd0fe42fdbeea44b
+上記参照してください。
+
+----------------------------------------------------------
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
