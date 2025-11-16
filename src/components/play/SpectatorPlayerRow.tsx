@@ -156,7 +156,7 @@ export default function SpectatorPlayerRow({
                       alt={`${player.name} icon`}
                       fill
                       sizes="80px"
-                      className="origin-center h-full w-full object-contain object-center -translate-x-[8%]"
+                      className="origin-center h-full w-full object-contain object-center -translate-x-[8%] translate-y-[15%]"
                     />
                   </div>
                 ) : (
