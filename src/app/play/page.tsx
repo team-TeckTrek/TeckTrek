@@ -1,6 +1,6 @@
 'use client'
 
-import Sample from '@/components/demo/demo'
+import Sample from '@/components/demo/sample'
 import Timer from '@/components/play/Timer'
 
 export default function Page() {
