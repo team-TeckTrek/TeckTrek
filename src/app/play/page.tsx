@@ -1,7 +1,7 @@
 'use client'
 
 import Sample from '@/components/demo/sample'
-import Timer from '@/components/play/Timer'
+import GameHeader from '@/components/play/GameHeader'
 
 export default function Page() {
   return (
@@ -20,9 +20,9 @@ export default function Page() {
 
       <div className="flex flex-col gap-2 flex-[183] min-w-[183px]">
         <div className="bg-neutral-200 flex-1 flex flex-col items-center justify-center">
-          <Sample title="タイム、退室" />
-          <Timer initialTime={60} isRunning={true} />
+          <GameHeader />
         </div>
+
         <div className="bg-neutral-200 flex-1 flex">
           <Sample title="プレイヤーアイコン" />
         </div>
