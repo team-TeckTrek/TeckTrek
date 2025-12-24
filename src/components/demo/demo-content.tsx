@@ -9,14 +9,18 @@ interface Props {
 }
 
 export default function DemoContent({ demoDataPromise }: Props) {
+  // 受け取ったpromiseをuseで解決
   const demoData = use(demoDataPromise)
 
+  // エラーハンドリング
   if (isError(demoData)) {
     handleFetchErrors('system', [demoData])
     return null
   }
 
   return (
+    // Suspenseでラップして表示
+    // fallbackでローディングUIを指定
     <Suspense fallback={<div>Loading...</div>}>
       <Demo demoData={demoData} />
     </Suspense>
