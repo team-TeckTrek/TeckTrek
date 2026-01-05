@@ -1,10 +1,11 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import SpectatorPlayerRow, {
   type SpectatorPlayer,
 } from '@/components/play/SpectatorPlayerRow'
 import SpectatorMessageList from '@/components/play/SpectatorMessageList'
+import WaitingDialog from '@/components/play/WaitingDialog'
 
 const MESSAGES = [
   'うまい！',
@@ -27,6 +28,18 @@ export default function WaitPage() {
     ],
     [],
   )
+
+  const [openWaiting, setOpenWaiting] = useState(true)
+  const [remainingSeconds, setRemainingSeconds] = useState(90)
+
+  useEffect(() => {
+    if (!openWaiting) return
+    if (remainingSeconds <= 0) return
+    const id = window.setInterval(() => {
+      setRemainingSeconds((prev) => Math.max(0, prev - 1))
+    }, 1000)
+    return () => window.clearInterval(id)
+  }, [openWaiting, remainingSeconds])
 
   const activePlayerId = players.find((player) => player.isCurrent)?.id
 
@@ -71,6 +84,22 @@ export default function WaitPage() {
           />
         </div>
       </div>
+
+      <WaitingDialog
+        open={openWaiting}
+        remainingSeconds={remainingSeconds}
+        players={[
+          { id: 'player1', name: 'player1' },
+          { id: 'player2', name: 'player2' },
+        ]}
+        rulesText={
+          'ルール説明などのテキストが入ります。\nルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。'
+        }
+        onExit={() => setOpenWaiting(false)}
+        onReady={() => {
+          setOpenWaiting(false)
+        }}
+      />
     </div>
   )
 }

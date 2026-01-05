@@ -13,8 +13,8 @@ export default function CatIcon({ className }: Props) {
     <div
       className={clsx(
         'relative overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[#D6FFFD]',
+        'p-1 sm:p-1.5',
         className,
-        (className = 'p-1 sm:p-1.5'),
       )}
     >
       <Image

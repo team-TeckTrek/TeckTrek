@@ -90,9 +90,7 @@ const DrawingCanvas = forwardRef<DrawingCanvasHandle, Props>(
         historyRef.current.push(snapshot)
         historyIndexRef.current = historyRef.current.length - 1
         notifyHistoryChange()
-      } catch {
-        // getImageData can fail if the canvas becomes tainted
-      }
+      } catch {}
     }, [notifyHistoryChange])
 
     const applyHistory = useCallback(() => {
