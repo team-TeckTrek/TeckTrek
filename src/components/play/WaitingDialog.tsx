@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
+import CatIcon from './icons/CatIcon'
 
 export type WaitingPlayer = {
   id: string
@@ -81,19 +82,23 @@ export default function WaitingDialog({
 
         <div className="flex items-center justify-start gap-10 shrink-0 -mx-[56px] px-[82.37px]">
           {players.map((player) => (
-            <div key={player.id} className="flex flex-col items-center gap-2">
-              <div className="size-[80px] rounded-[100px] border-[3px] border-[var(--green,#60BD00)] bg-[#D6FFFD] p-1">
-                <div className="relative size-full overflow-hidden rounded-full">
-                  <Image
-                    src={player.iconUrl ?? '/image/cat.png'}
-                    alt={`${player.name} icon`}
-                    fill
-                    sizes="80px"
-                    className="origin-center object-contain object-center -translate-x-[10%] translate-y-[32%] scale-[1.2]"
-                  />
-                </div>
+            <div key={player.id} className="flex flex-col items-start">
+              <div className="flex size-[80px] items-center justify-center">
+                {player.iconUrl ? (
+                  <div className="relative size-full overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[#D6FFFD] p-1 sm:p-1.5">
+                    <Image
+                      src={player.iconUrl}
+                      alt={`${player.name} icon`}
+                      fill
+                      sizes="80px"
+                      className="origin-center h-full w-full object-contain object-center -translate-x-[9%] translate-y-[32%] scale-[1.2]"
+                    />
+                  </div>
+                ) : (
+                  <CatIcon className="size-full" />
+                )}
               </div>
-              <span className="inline-flex h-[25px] w-[84px] items-center justify-center rounded-[100px] border-[3px] border-[var(--green,#60BD00)] bg-[var(--green_light,#EFFFDF)] px-4 py-1 text-[14px] font-bold leading-none text-[var(--green,#60BD00)]">
+              <span className="mt-[8px] inline-flex h-[25px] w-[82px] items-center justify-center rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[var(--green_light,#EFFFDF)] px-4 text-[14px] font-bold leading-none text-[var(--green,#60BD00)]">
                 {player.name}
               </span>
             </div>
