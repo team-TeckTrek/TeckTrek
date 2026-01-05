@@ -27,24 +27,26 @@ export default function NoticeList({ notices }: Props) {
   }, [])
 
   return (
-    <section className="mt-6 w-full text-[#5B3A18] bg-white/70">
-      <h2 className="mb-4 text-lg font-bold">お知らせ</h2>
+    <section className="mt-6 w-full">
+      <div className="scale-110 origin-top text-[#5B3A18] bg-white/70 p-6">
+        <h2 className="mb-4 text-lg font-bold">お知らせ</h2>
 
-      {hasNotices ? (
-        <ul>
-          {list.map((notice) => (
-            <NoticeItem key={notice.id} notice={notice} onOpen={handleOpen} />
-          ))}
-        </ul>
-      ) : (
-        <div className="text-sm text-[#5B3A18]">お知らせはありません</div>
-      )}
+        {hasNotices ? (
+          <ul>
+            {list.map((notice) => (
+              <NoticeItem key={notice.id} notice={notice} onOpen={handleOpen} />
+            ))}
+          </ul>
+        ) : (
+          <div className="text-sm text-[#5B3A18]">お知らせはありません</div>
+        )}
 
-      <NoticeDialog
-        open={modalData !== null}
-        notice={modalData}
-        onClose={handleClose}
-      />
+        <NoticeDialog
+          open={modalData !== null}
+          notice={modalData}
+          onClose={handleClose}
+        />
+      </div>
     </section>
   )
 }
