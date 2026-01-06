@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import Image from 'next/image'
 
 import {
@@ -18,6 +18,7 @@ export type WaitingPlayer = {
   id: string
   name: string
   iconUrl?: string
+  isReady?: boolean
 }
 
 type Props = {
@@ -27,6 +28,8 @@ type Props = {
   rulesText: string
   onExit: () => void
   onReady: () => void
+  onTimeout?: () => void
+  isCurrentUserReady?: boolean
   dismissible?: boolean
   exitLabel?: string
   readyLabel?: string
@@ -39,6 +42,8 @@ export default function WaitingDialog({
   rulesText,
   onExit,
   onReady,
+  onTimeout,
+  isCurrentUserReady = false,
   dismissible = false,
   exitLabel = '退出',
   readyLabel = '準備完了',
@@ -52,6 +57,12 @@ export default function WaitingDialog({
     },
     [dismissible, onExit, open],
   )
+
+  useEffect(() => {
+    if (remainingSeconds === 0 && !isCurrentUserReady && onTimeout) {
+      onTimeout()
+    }
+  }, [remainingSeconds, isCurrentUserReady, onTimeout])
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -80,9 +91,17 @@ export default function WaitingDialog({
           </div>
         </DialogHeader>
 
-        <div className="flex items-center justify-start gap-10 shrink-0 -mx-[56px] px-[82.37px]">
+        <div className="flex items-center justify-start gap-6 shrink-0 -mx-[56px] px-[56px]">
           {players.map((player) => (
-            <div key={player.id} className="flex flex-col items-start">
+            <div
+              key={player.id}
+              className="relative flex flex-col items-center"
+            >
+              {player.isReady && (
+                <span className="absolute -top-[8px] left-1/2 -translate-x-1/2 z-10 inline-flex h-[25px] items-center justify-center whitespace-nowrap rounded-t-full rounded-bl-full rounded-br-none bg-[var(--green,#60BD00)] px-3 text-[12px] font-bold leading-none text-white">
+                  準備完了
+                </span>
+              )}
               <div className="flex size-[80px] items-center justify-center">
                 {player.iconUrl ? (
                   <div className="relative size-full overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[#D6FFFD] p-1 sm:p-1.5">
@@ -121,7 +140,8 @@ export default function WaitingDialog({
           <Button
             type="button"
             onClick={onReady}
-            className="h-[56px] w-[164px] rounded-[100px] bg-[var(--btn_color,#4F7EDE)] px-8 py-4 text-[20px] font-bold text-white shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] hover:bg-[#3F6FD6] transition-colors"
+            disabled={isCurrentUserReady}
+            className="h-[56px] w-[164px] rounded-[100px] bg-[var(--btn_color,#4F7EDE)] px-8 py-4 text-[20px] font-bold text-white shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] hover:bg-[#3F6FD6] transition-colors disabled:bg-[#C4C4C4] disabled:shadow-none disabled:cursor-not-allowed"
           >
             {readyLabel}
           </Button>

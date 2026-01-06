@@ -1,11 +1,13 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import SpectatorPlayerRow, {
   type SpectatorPlayer,
 } from '@/components/play/SpectatorPlayerRow'
 import SpectatorMessageList from '@/components/play/SpectatorMessageList'
-import WaitingDialog from '@/components/play/WaitingDialog'
+import WaitingDialog, {
+  type WaitingPlayer,
+} from '@/components/play/WaitingDialog'
 
 const MESSAGES = [
   'うまい！',
@@ -17,6 +19,8 @@ const MESSAGES = [
   'Sample1',
   'Sample2',
 ]
+
+const INITIAL_SECONDS = 90
 
 export default function WaitPage() {
   const players = useMemo<SpectatorPlayer[]>(
@@ -30,7 +34,12 @@ export default function WaitPage() {
   )
 
   const [openWaiting, setOpenWaiting] = useState(true)
-  const [remainingSeconds, setRemainingSeconds] = useState(90)
+  const [remainingSeconds, setRemainingSeconds] = useState(INITIAL_SECONDS)
+  const [isCurrentUserReady, setIsCurrentUserReady] = useState(false)
+  const [waitingPlayers, setWaitingPlayers] = useState<WaitingPlayer[]>([
+    { id: 'player1', name: 'player1', isReady: false },
+    { id: 'player2', name: 'player2', isReady: false },
+  ])
 
   useEffect(() => {
     if (!openWaiting) return
@@ -40,6 +49,22 @@ export default function WaitPage() {
     }, 1000)
     return () => window.clearInterval(id)
   }, [openWaiting, remainingSeconds])
+
+  const handleReady = useCallback(() => {
+    setIsCurrentUserReady(true)
+    setWaitingPlayers((prev) =>
+      prev.map((p) => (p.id === 'player2' ? { ...p, isReady: true } : p)),
+    )
+  }, [])
+
+  const handleExit = useCallback(() => {
+    setOpenWaiting(false)
+  }, [])
+
+  const handleTimeout = useCallback(() => {
+    alert('タイムアウトしました。準備完了していなかったため退出されます。')
+    setOpenWaiting(false)
+  }, [])
 
   const activePlayerId = players.find((player) => player.isCurrent)?.id
 
@@ -88,17 +113,14 @@ export default function WaitPage() {
       <WaitingDialog
         open={openWaiting}
         remainingSeconds={remainingSeconds}
-        players={[
-          { id: 'player1', name: 'player1' },
-          { id: 'player2', name: 'player2' },
-        ]}
+        players={waitingPlayers}
         rulesText={
           'ルール説明などのテキストが入ります。\nルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。'
         }
-        onExit={() => setOpenWaiting(false)}
-        onReady={() => {
-          setOpenWaiting(false)
-        }}
+        isCurrentUserReady={isCurrentUserReady}
+        onExit={handleExit}
+        onReady={handleReady}
+        onTimeout={handleTimeout}
       />
     </div>
   )
