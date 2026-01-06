@@ -28,12 +28,16 @@ type Props = {
   rulesText: string
   onExit: () => void
   onReady: () => void
-  onTimeout?: () => void
+  onGameStart?: (readyPlayers: WaitingPlayer[]) => void
+  onTimeoutKick?: () => void
   isCurrentUserReady?: boolean
   dismissible?: boolean
   exitLabel?: string
   readyLabel?: string
 }
+
+const MAX_PLAYERS = 4
+const MIN_PLAYERS_TO_START = 2
 
 export default function WaitingDialog({
   open,
@@ -42,7 +46,8 @@ export default function WaitingDialog({
   rulesText,
   onExit,
   onReady,
-  onTimeout,
+  onGameStart,
+  onTimeoutKick,
   isCurrentUserReady = false,
   dismissible = false,
   exitLabel = '退出',
@@ -58,11 +63,36 @@ export default function WaitingDialog({
     [dismissible, onExit, open],
   )
 
+  const readyPlayers = players.filter((p) => p.isReady)
+  const readyCount = readyPlayers.length
+
   useEffect(() => {
-    if (remainingSeconds === 0 && !isCurrentUserReady && onTimeout) {
-      onTimeout()
+    if (readyCount === MAX_PLAYERS && onGameStart) {
+      onGameStart(readyPlayers)
     }
-  }, [remainingSeconds, isCurrentUserReady, onTimeout])
+  }, [readyCount, onGameStart, readyPlayers])
+
+  useEffect(() => {
+    if (remainingSeconds !== 0) return
+
+    if (!isCurrentUserReady && onTimeoutKick) {
+      onTimeoutKick()
+      return
+    }
+
+    if (readyCount >= MIN_PLAYERS_TO_START && onGameStart) {
+      onGameStart(readyPlayers)
+    } else if (readyCount < MIN_PLAYERS_TO_START && onTimeoutKick) {
+      onTimeoutKick()
+    }
+  }, [
+    remainingSeconds,
+    isCurrentUserReady,
+    readyCount,
+    onGameStart,
+    onTimeoutKick,
+    readyPlayers,
+  ])
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -91,14 +121,14 @@ export default function WaitingDialog({
           </div>
         </DialogHeader>
 
-        <div className="flex items-center justify-start gap-6 shrink-0 -mx-[56px] px-[56px]">
+        <div className="flex items-center justify-start gap-[48.75px] shrink-0 -mx-[56px] px-[82.37px]">
           {players.map((player) => (
             <div
               key={player.id}
               className="relative flex flex-col items-center"
             >
               {player.isReady && (
-                <span className="absolute -top-[8px] left-1/2 -translate-x-1/2 z-10 inline-flex h-[25px] items-center justify-center whitespace-nowrap rounded-t-full rounded-bl-full rounded-br-none bg-[var(--green,#60BD00)] px-3 text-[12px] font-bold leading-none text-white">
+                <span className="absolute -top-[8px] left-1/2 -translate-x-1/2 z-10 inline-flex h-[25px] w-[72px] items-center justify-center whitespace-nowrap rounded-[10px] bg-[var(--btn_color,#4F7EDE)] px-2 py-1 text-[14px] font-bold leading-none text-[#FFFFFF]">
                   準備完了
                 </span>
               )}
@@ -124,11 +154,11 @@ export default function WaitingDialog({
           ))}
         </div>
 
-        <DialogDescription className="min-h-0 flex-1 overflow-auto whitespace-pre-line text-[20px] font-normal leading-[100%] tracking-[0%] text-[var(--brown,#462C05)] -mx-[56px] px-[66px]">
+        <DialogDescription className="min-h-0 flex-1 overflow-auto whitespace-pre-line text-[20px] font-normal leading-[100%] tracking-[0%] text-[var(--brown,#462C05)] -mx-[56px] pl-[66px] pr-[66px]">
           {rulesText}
         </DialogDescription>
 
-        <DialogFooter className="mt-auto shrink-0 flex w-full items-center justify-center gap-[10px]">
+        <DialogFooter className="mt-auto shrink-0 flex w-full items-center justify-center gap-[16px]">
           <Button
             type="button"
             onClick={onExit}
@@ -141,7 +171,7 @@ export default function WaitingDialog({
             type="button"
             onClick={onReady}
             disabled={isCurrentUserReady}
-            className="h-[56px] w-[164px] rounded-[100px] bg-[var(--btn_color,#4F7EDE)] px-8 py-4 text-[20px] font-bold text-white shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] hover:bg-[#3F6FD6] transition-colors disabled:bg-[#C4C4C4] disabled:shadow-none disabled:cursor-not-allowed"
+            className="h-[56px] w-[164px] rounded-[100px] bg-[var(--btn_color,#4F7EDE)] px-8 py-4 text-[20px] font-bold text-white shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] hover:bg-[#3F6FD6] transition-colors disabled:bg-[#D9D9D9] disabled:text-[#462C05] disabled:shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] disabled:cursor-not-allowed"
           >
             {readyLabel}
           </Button>

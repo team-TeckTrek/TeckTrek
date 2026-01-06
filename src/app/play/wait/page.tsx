@@ -61,8 +61,13 @@ export default function WaitPage() {
     setOpenWaiting(false)
   }, [])
 
-  const handleTimeout = useCallback(() => {
-    alert('タイムアウトしました。準備完了していなかったため退出されます。')
+  const handleGameStart = useCallback((readyPlayers: WaitingPlayer[]) => {
+    alert(`ゲーム開始！参加者: ${readyPlayers.map((p) => p.name).join(', ')}`)
+    setOpenWaiting(false)
+  }, [])
+
+  const handleTimeoutKick = useCallback(() => {
+    alert('タイムアウトしました。TOPに戻ります。')
     setOpenWaiting(false)
   }, [])
 
@@ -120,7 +125,8 @@ export default function WaitPage() {
         isCurrentUserReady={isCurrentUserReady}
         onExit={handleExit}
         onReady={handleReady}
-        onTimeout={handleTimeout}
+        onGameStart={handleGameStart}
+        onTimeoutKick={handleTimeoutKick}
       />
     </div>
   )
