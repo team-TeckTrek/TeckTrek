@@ -27,8 +27,8 @@ export default function NoticeList({ notices }: Props) {
   }, [])
 
   return (
-    <section className="mt-6 w-full">
-      <div className="scale-110 origin-top text-[#5B3A18] bg-white/70 p-6">
+    <section className="w-[1000px] py-8">
+      <div className="scale-140 origin-top text-[#5B3A18] bg-white/70 p-6">
         <h2 className="mb-4 text-lg font-bold">お知らせ</h2>
 
         {hasNotices ? (
