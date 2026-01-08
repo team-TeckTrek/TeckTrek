@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import SpectatorPlayerRow, {
   type SpectatorPlayer,
 } from '@/components/play/SpectatorPlayerRow'
@@ -23,6 +24,8 @@ const MESSAGES = [
 const INITIAL_SECONDS = 90
 
 export default function WaitPage() {
+  const router = useRouter()
+
   const players = useMemo<SpectatorPlayer[]>(
     () => [
       { id: 'player1', name: 'player1' },
@@ -69,7 +72,8 @@ export default function WaitPage() {
   const handleTimeoutKick = useCallback(() => {
     alert('タイムアウトしました。TOPに戻ります。')
     setOpenWaiting(false)
-  }, [])
+    router.replace('/top')
+  }, [router])
 
   const activePlayerId = players.find((player) => player.isCurrent)?.id
 
@@ -86,7 +90,7 @@ export default function WaitPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--main_color1,#FFDEC5)] py-8">
+    <div className="flex min-h-screen items-center justify-center bg-(--main_color1,#FFDEC5) py-8">
       <div
         className="flex items-start gap-6 rounded-[24px] border border-[#D3C9C1]"
         style={{
