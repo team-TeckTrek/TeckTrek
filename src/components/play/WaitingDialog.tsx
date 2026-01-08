@@ -21,7 +21,7 @@ export type WaitingPlayer = {
   isReady?: boolean
 }
 
-type Props = {
+interface Props {
   open: boolean
   remainingSeconds: number
   players: WaitingPlayer[]
@@ -109,13 +109,13 @@ export default function WaitingDialog({
         <DialogHeader className="items-center text-center shrink-0">
           <DialogTitle className="sr-only">待機モーダル</DialogTitle>
           <div className="flex items-baseline justify-center gap-1 leading-none">
-            <span className="text-[20px] font-normal text-[var(--red,#F85D5D)] leading-[100%] tracking-[0%]">
+            <span className="text-[20px] font-normal text-(--red,#F85D5D) leading-[100%] tracking-[0%]">
               残り
             </span>
-            <span className="text-[48px] font-bold text-[var(--red,#F85D5D)] leading-[100%] tracking-[0%]">
+            <span className="text-[48px] font-bold text-(--red,#F85D5D) leading-[100%] tracking-[0%]">
               {remainingSeconds}
             </span>
-            <span className="text-[20px] font-normal text-[var(--red,#F85D5D)] leading-[100%] tracking-[0%]">
+            <span className="text-[20px] font-normal text-(--red,#F85D5D) leading-[100%] tracking-[0%]">
               秒
             </span>
           </div>
@@ -128,13 +128,13 @@ export default function WaitingDialog({
               className="relative flex flex-col items-center"
             >
               {player.isReady && (
-                <span className="absolute -top-[8px] left-1/2 -translate-x-1/2 z-10 inline-flex h-[25px] w-[72px] items-center justify-center whitespace-nowrap rounded-[10px] bg-[var(--btn_color,#4F7EDE)] px-2 py-1 text-[14px] font-bold leading-none text-[#FFFFFF]">
+                <span className="absolute -top-[8px] left-1/2 -translate-x-1/2 z-10 inline-flex h-[25px] w-[72px] items-center justify-center whitespace-nowrap rounded-[10px] bg-(--btn_color,#4F7EDE) px-2 py-1 text-[14px] font-bold leading-none text-[#FFFFFF]">
                   準備完了
                 </span>
               )}
               <div className="flex size-[80px] items-center justify-center">
                 {player.iconUrl ? (
-                  <div className="relative size-full overflow-hidden rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[#D6FFFD] p-1 sm:p-1.5">
+                  <div className="relative size-full overflow-hidden rounded-full border-[3px] border-(--green,#60BD00) bg-[#D6FFFD] p-1 sm:p-1.5">
                     <Image
                       src={player.iconUrl}
                       alt={`${player.name} icon`}
@@ -147,14 +147,14 @@ export default function WaitingDialog({
                   <CatIcon className="size-full" />
                 )}
               </div>
-              <span className="mt-[8px] inline-flex h-[25px] w-[82px] items-center justify-center rounded-full border-[3px] border-[var(--green,#60BD00)] bg-[var(--green_light,#EFFFDF)] px-4 text-[14px] font-bold leading-none text-[var(--green,#60BD00)]">
+              <span className="mt-[8px] inline-flex h-[25px] w-[82px] items-center justify-center rounded-full border-[3px] border-(--green,#60BD00) bg-(--green_light,#EFFFDF) px-4 text-[14px] font-bold leading-none text-(--green,#60BD00)">
                 {player.name}
               </span>
             </div>
           ))}
         </div>
 
-        <DialogDescription className="min-h-0 flex-1 overflow-auto whitespace-pre-line text-[20px] font-normal leading-[100%] tracking-[0%] text-[var(--brown,#462C05)] -mx-[56px] pl-[66px] pr-[66px]">
+        <DialogDescription className="min-h-0 flex-1 overflow-auto whitespace-pre-line text-[20px] font-normal leading-[100%] tracking-[0%] text-(--brown,#462C05) -mx-[56px] pl-[66px] pr-[66px]">
           {rulesText}
         </DialogDescription>
 
@@ -163,7 +163,7 @@ export default function WaitingDialog({
             type="button"
             onClick={onExit}
             variant="outline"
-            className="h-[56px] w-[164px] rounded-[100px] border-[3px] border-[var(--btn_color,#4F7EDE)] bg-white px-8 py-4 text-[20px] font-bold text-[var(--btn_color,#4F7EDE)] shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] hover:bg-[#F5F7FF] transition-colors"
+            className="h-[56px] w-[164px] rounded-[100px] border-[3px] border-(--btn_color,#4F7EDE) bg-white px-8 py-4 text-[20px] font-bold text-(--btn_color,#4F7EDE) shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] hover:bg-[#F5F7FF] transition-colors"
           >
             {exitLabel}
           </Button>
@@ -171,7 +171,7 @@ export default function WaitingDialog({
             type="button"
             onClick={onReady}
             disabled={isCurrentUserReady}
-            className="h-[56px] w-[164px] rounded-[100px] bg-[var(--btn_color,#4F7EDE)] px-8 py-4 text-[20px] font-bold text-white shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] hover:bg-[#3F6FD6] transition-colors disabled:bg-[#D9D9D9] disabled:text-[#462C05] disabled:shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] disabled:cursor-not-allowed"
+            className="h-[56px] w-[164px] rounded-[100px] bg-(--btn_color,#4F7EDE) px-8 py-4 text-[20px] font-bold text-white shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] hover:bg-[#3F6FD6] transition-colors disabled:bg-[#D9D9D9] disabled:text-[#462C05] disabled:shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] disabled:cursor-not-allowed"
           >
             {readyLabel}
           </Button>
