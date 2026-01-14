@@ -1,8 +1,10 @@
+'use client'
+
 import clsx from 'clsx'
 import Image from 'next/image'
 import React from 'react'
 
-interface Props {
+type Props = {
   className?: string
 }
 
