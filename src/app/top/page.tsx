@@ -1,6 +1,9 @@
-import MusicToggleButton from '@/components/music-button/MusicToggleButton'
+'use client'
+
 import Image from 'next/image'
+import MusicToggleButton from '@/components/music-button/MusicToggleButton'
 import NoticeList from '@/components/notification/NoticeList'
+import MatchButtons from '@/components/top/MatchButtons'
 import { DEFAULT_NOTICES } from '@/constants/notices'
 
 export default function TopPage() {
@@ -15,15 +18,20 @@ export default function TopPage() {
         className="object-cover -z-10"
       />
 
-      <div className="flex-1 flex items-start justify-center">
-        <div className="flex flex-col items-center gap-2 mt-[80px] pb-[50px]">
+      <div className="flex-1 flex flex-col items-center">
+        {/* タイトル */}
+        <div className="mt-[80px] pb-[30px] flex flex-col items-center gap-2">
           <h1 className="text-[90px] font-medium text-[#352107] text-center leading-relaxed">
             <span className="block">Teck Trek</span>
             <span className="block">絵しりとり</span>
           </h1>
         </div>
+
+        {/* マッチボタン */}
+        <MatchButtons />
       </div>
 
+      {/* お知らせ + 音ボタン */}
       <div className="pb-8 translate-y-[-120px] w-full">
         <div className="grid grid-cols-[1fr_1000px_1fr] items-end">
           <div className="col-start-2 flex justify-center">
