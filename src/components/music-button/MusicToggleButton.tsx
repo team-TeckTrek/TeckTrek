@@ -31,7 +31,7 @@ export default function MusicToggleButton() {
   return (
     <button
       onClick={toggleMute}
-      className="fixed bottom-6 right-6 z-50 rounded-full p-0 shadow-md hover:scale-110 transition text-[#352107] bg-white"
+      className="z-50 rounded-full p-0 shadow-md hover:scale-110 transition text-[#352107] bg-white"
       aria-pressed={isMuted}
       aria-label={isMuted ? '音楽オフ' : '音楽オン'}
     >
