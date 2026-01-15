@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 
 import {
@@ -63,7 +63,10 @@ export default function WaitingDialog({
     [dismissible, onExit, open],
   )
 
-  const readyPlayers = players.filter((p) => p.isReady)
+  const readyPlayers = useMemo(
+    () => players.filter((p) => p.isReady),
+    [players],
+  )
   const readyCount = readyPlayers.length
 
   useEffect(() => {

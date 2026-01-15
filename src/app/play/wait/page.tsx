@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import SpectatorPlayerRow, {
   type SpectatorPlayer,
@@ -9,46 +9,54 @@ import SpectatorMessageList from '@/components/play/SpectatorMessageList'
 import WaitingDialog, {
   type WaitingPlayer,
 } from '@/components/play/WaitingDialog'
-
-const MESSAGES = [
-  'うまい！',
-  'もしかして',
-  'わかった！',
-  'むずかしい…',
-  'さすが！',
-  'おてあげ',
-  'Sample1',
-  'Sample2',
-]
-
-const INITIAL_SECONDS = 90
+import { fetchWaitData } from '@/feature/wait/request'
+import { isError } from '@/feature/fetcher/errors'
 
 export default function WaitPage() {
   const router = useRouter()
 
-  const players = useMemo<SpectatorPlayer[]>(
-    () => [
-      { id: 'player1', name: 'player1' },
-      { id: 'player2', name: 'player2', isCurrent: true },
-      { id: 'player3', name: 'player3' },
-      { id: 'player4', name: 'player4' },
-    ],
+  const [openWaiting, setOpenWaiting] = useState(false)
+  const [remainingSeconds, setRemainingSeconds] = useState<number | null>(null)
+  const [isCurrentUserReady, setIsCurrentUserReady] = useState(false)
+  const [waitingPlayers, setWaitingPlayers] = useState<WaitingPlayer[]>([])
+  const [spectatorPlayers, setSpectatorPlayers] = useState<SpectatorPlayer[]>(
     [],
   )
+  const [messages, setMessages] = useState<string[]>([])
+  const [rulesText, setRulesText] = useState('')
 
-  const [openWaiting, setOpenWaiting] = useState(true)
-  const [remainingSeconds, setRemainingSeconds] = useState(INITIAL_SECONDS)
-  const [isCurrentUserReady, setIsCurrentUserReady] = useState(false)
-  const [waitingPlayers, setWaitingPlayers] = useState<WaitingPlayer[]>([
-    { id: 'player1', name: 'player1', isReady: false },
-    { id: 'player2', name: 'player2', isReady: false },
-  ])
+  useEffect(() => {
+    const controller = new AbortController()
+    let cancelled = false
+
+    const load = async () => {
+      const response = await fetchWaitData(controller)
+      if (isError(response)) {
+        console.error(response)
+        return
+      }
+      if (cancelled) return
+      setMessages(response.messages)
+      setSpectatorPlayers(response.spectatorPlayers)
+      setWaitingPlayers(response.waitingPlayers)
+      setRulesText(response.rulesText)
+      setRemainingSeconds(response.initialSeconds)
+      setOpenWaiting(true)
+    }
+
+    load()
+
+    return () => {
+      cancelled = true
+      controller.abort()
+    }
+  }, [])
 
   useEffect(() => {
     if (!openWaiting) return
-    if (remainingSeconds <= 0) return
+    if (remainingSeconds === null || remainingSeconds <= 0) return
     const id = window.setInterval(() => {
-      setRemainingSeconds((prev) => Math.max(0, prev - 1))
+      setRemainingSeconds((prev) => (prev === null ? 0 : Math.max(0, prev - 1)))
     }, 1000)
     return () => window.clearInterval(id)
   }, [openWaiting, remainingSeconds])
@@ -75,7 +83,7 @@ export default function WaitPage() {
     router.replace('/top')
   }, [router])
 
-  const activePlayerId = players.find((player) => player.isCurrent)?.id
+  const activePlayerId = spectatorPlayers.find((player) => player.isCurrent)?.id
 
   const [reactions, setReactions] = useState<
     Record<string, string | undefined>
@@ -87,6 +95,10 @@ export default function WaitPage() {
       ...prev,
       [activePlayerId]: message,
     }))
+  }
+
+  if (remainingSeconds === null) {
+    return <div className="min-h-screen bg-(--main_color1,#FFDEC5)" />
   }
 
   return (
@@ -106,13 +118,13 @@ export default function WaitPage() {
           <div className="flex flex-1 items-start gap-6">
             <div className="flex flex-1" />
             <SpectatorMessageList
-              messages={MESSAGES}
+              messages={messages}
               onSelect={handleChooseMessage}
               className="w-[160px] self-start"
             />
           </div>
           <SpectatorPlayerRow
-            players={players}
+            players={spectatorPlayers}
             reactions={reactions}
             className="absolute bottom-[23px] left-[31px]"
           />
@@ -123,9 +135,7 @@ export default function WaitPage() {
         open={openWaiting}
         remainingSeconds={remainingSeconds}
         players={waitingPlayers}
-        rulesText={
-          'ルール説明などのテキストが入ります。\nルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。ルール説明などのテキストが入ります。'
-        }
+        rulesText={rulesText}
         isCurrentUserReady={isCurrentUserReady}
         onExit={handleExit}
         onReady={handleReady}
