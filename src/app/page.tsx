@@ -1,11 +1,15 @@
 import NoticeList from '@/components/notification/NoticeList'
-import { DEFAULT_NOTICES } from '@/constants/notices'
+import { fetchNotices } from '@/feature/notice/request'
+import { isError } from '@/feature/fetcher/errors'
 
-export default function Page() {
+export default async function Page() {
+  const response = await fetchNotices()
+  const notices = isError(response) ? [] : response.notices
+
   return (
     <main className="flex min-h-screen flex-col items-center bg-gray-50">
       <div className="mt-8 w-[600px]">
-        <NoticeList notices={DEFAULT_NOTICES} />
+        <NoticeList notices={notices} />
       </div>
       {/* 他のコンテンツ */}
     </main>

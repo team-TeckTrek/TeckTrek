@@ -1,38 +1,36 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ColorPalette from '@/components/play/ColorPalette'
-
-const PRESET_COLORS = [
-  '#000000',
-  '#696969',
-  '#D9D9D9',
-  '#FFFFFF',
-  '#F43545',
-  '#F2A39C',
-  '#FF8901',
-  '#FFB986',
-  '#AC7A24',
-  '#D6C3A1',
-  '#FFE346',
-  '#FBFAC4',
-  '#9CCD00',
-  '#D0E6A5',
-  '#00BA71',
-  '#72F1BF',
-  '#00C2DE',
-  '#80C7FB',
-  '#250F8D',
-  '#799DFF',
-  '#972DA9',
-  '#ED81FF',
-  '#F54393',
-  '#FFCBE2',
-]
+import { fetchPalette } from '@/feature/palette/request'
+import { isError } from '@/feature/fetcher/errors'
 
 export default function ColorPalettePreviewPage() {
-  const colors = useMemo(() => PRESET_COLORS, [])
-  const [selectedColor, setSelectedColor] = useState(colors[0] ?? '#1F1F1F')
+  const [colors, setColors] = useState<string[]>([])
+  const [selectedColor, setSelectedColor] = useState<string>('#1F1F1F')
+
+  useEffect(() => {
+    const controller = new AbortController()
+    let cancelled = false
+
+    const load = async () => {
+      const response = await fetchPalette(controller)
+      if (isError(response)) {
+        console.error(response)
+        return
+      }
+      if (cancelled) return
+      setColors(response.colors)
+      setSelectedColor(response.colors[0] ?? '#1F1F1F')
+    }
+
+    load()
+
+    return () => {
+      cancelled = true
+      controller.abort()
+    }
+  }, [])
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#F5F0EB] p-8">
