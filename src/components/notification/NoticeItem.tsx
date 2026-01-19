@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Notice, DEFAULT_TITLE_MAX } from './types'
+import { Button } from '@/components/ui/button'
 
 interface Props {
   notice: Notice
@@ -20,15 +21,16 @@ export default function NoticeItem({ notice, onOpen }: Props) {
   return (
     <li className="group flex items-baseline gap-6 py-2 text-base text-[#5B3A18]">
       <span className="w-32 shrink-0">{notice.date}</span>
-      <button
+      <Button
         type="button"
         onClick={handleClick}
-        className="flex-1 text-left focus:outline-none focus-visible:underline"
+        variant="ghost"
+        className="h-auto flex-1 justify-start p-0 text-left text-[#5B3A18] hover:bg-transparent focus-visible:underline"
       >
         <span className="block border-b border-[#5B3A18] pb-px whitespace-nowrap">
           {shortTitle}
         </span>
-      </button>
+      </Button>
     </li>
   )
 }

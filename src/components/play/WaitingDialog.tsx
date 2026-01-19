@@ -1,0 +1,185 @@
+'use client'
+
+import React, { useCallback, useEffect, useMemo } from 'react'
+import Image from 'next/image'
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import CatIcon from './icons/CatIcon'
+
+export type WaitingPlayer = {
+  id: string
+  name: string
+  iconUrl?: string
+  isReady?: boolean
+}
+
+interface Props {
+  open: boolean
+  remainingSeconds: number
+  players: WaitingPlayer[]
+  rulesText: string
+  onExit: () => void
+  onReady: () => void
+  onGameStart?: (readyPlayers: WaitingPlayer[]) => void
+  onTimeoutKick?: () => void
+  isCurrentUserReady?: boolean
+  dismissible?: boolean
+  exitLabel?: string
+  readyLabel?: string
+}
+
+const MAX_PLAYERS = 4
+const MIN_PLAYERS_TO_START = 2
+
+export default function WaitingDialog({
+  open,
+  remainingSeconds,
+  players,
+  rulesText,
+  onExit,
+  onReady,
+  onGameStart,
+  onTimeoutKick,
+  isCurrentUserReady = false,
+  dismissible = false,
+  exitLabel = '退出',
+  readyLabel = '準備完了',
+}: Props) {
+  const handleOpenChange = useCallback(
+    (nextOpen: boolean) => {
+      if (open && !nextOpen) {
+        if (!dismissible) return
+        onExit()
+      }
+    },
+    [dismissible, onExit, open],
+  )
+
+  const readyPlayers = useMemo(
+    () => players.filter((p) => p.isReady),
+    [players],
+  )
+  const readyCount = readyPlayers.length
+
+  useEffect(() => {
+    if (readyCount === MAX_PLAYERS && onGameStart) {
+      onGameStart(readyPlayers)
+    }
+  }, [readyCount, onGameStart, readyPlayers])
+
+  useEffect(() => {
+    if (remainingSeconds !== 0) return
+
+    if (!isCurrentUserReady && onTimeoutKick) {
+      onTimeoutKick()
+      return
+    }
+
+    if (readyCount >= MIN_PLAYERS_TO_START && onGameStart) {
+      onGameStart(readyPlayers)
+    } else if (readyCount < MIN_PLAYERS_TO_START && onTimeoutKick) {
+      onTimeoutKick()
+    }
+  }, [
+    remainingSeconds,
+    isCurrentUserReady,
+    readyCount,
+    onGameStart,
+    onTimeoutKick,
+    readyPlayers,
+  ])
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent
+        showCloseButton={false}
+        className="flex flex-col h-[555px] w-[631px] max-w-[631px] sm:max-w-[631px] rounded-[24px] border-0 bg-[#FAF7F4] p-[56px] text-[#462C05] gap-6 overflow-hidden shadow-[0_2px_6px_4px_rgba(0,0,0,0.25)]"
+        onInteractOutside={(e) => {
+          if (!dismissible) e.preventDefault()
+        }}
+        onEscapeKeyDown={(e) => {
+          if (!dismissible) e.preventDefault()
+        }}
+      >
+        <DialogHeader className="items-center text-center shrink-0">
+          <DialogTitle className="sr-only">待機モーダル</DialogTitle>
+          <div className="flex items-baseline justify-center gap-1 leading-none">
+            <span className="text-[20px] font-normal text-(--red,#F85D5D) leading-[100%] tracking-[0%]">
+              残り
+            </span>
+            <span className="text-[48px] font-bold text-(--red,#F85D5D) leading-[100%] tracking-[0%]">
+              {remainingSeconds}
+            </span>
+            <span className="text-[20px] font-normal text-(--red,#F85D5D) leading-[100%] tracking-[0%]">
+              秒
+            </span>
+          </div>
+        </DialogHeader>
+
+        <div className="flex items-center justify-start gap-[48.75px] shrink-0 -mx-[56px] px-[82.37px]">
+          {players.map((player) => (
+            <div
+              key={player.id}
+              className="relative flex flex-col items-center"
+            >
+              {player.isReady && (
+                <span className="absolute -top-[8px] left-1/2 -translate-x-1/2 z-10 inline-flex h-[25px] w-[72px] items-center justify-center whitespace-nowrap rounded-[10px] bg-(--btn_color,#4F7EDE) px-2 py-1 text-[14px] font-bold leading-none text-[#FFFFFF]">
+                  準備完了
+                </span>
+              )}
+              <div className="flex size-[80px] items-center justify-center">
+                {player.iconUrl ? (
+                  <div className="relative size-full overflow-hidden rounded-full border-[3px] border-(--green,#60BD00) bg-[#D6FFFD] p-1 sm:p-1.5">
+                    <Image
+                      src={player.iconUrl}
+                      alt={`${player.name} icon`}
+                      fill
+                      sizes="80px"
+                      className="origin-center h-full w-full object-contain object-center -translate-x-[9%] translate-y-[32%] scale-[1.2]"
+                    />
+                  </div>
+                ) : (
+                  <CatIcon className="size-full" />
+                )}
+              </div>
+              <span className="mt-[8px] inline-flex h-[25px] w-[82px] items-center justify-center rounded-full border-[3px] border-(--green,#60BD00) bg-(--green_light,#EFFFDF) px-4 text-[14px] font-bold leading-none text-(--green,#60BD00)">
+                {player.name}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <DialogDescription className="min-h-0 flex-1 overflow-auto whitespace-pre-line text-[20px] font-normal leading-[100%] tracking-[0%] text-(--brown,#462C05) -mx-[56px] pl-[66px] pr-[66px]">
+          {rulesText}
+        </DialogDescription>
+
+        <DialogFooter className="mt-auto shrink-0 flex w-full items-center justify-center gap-[16px]">
+          <Button
+            type="button"
+            onClick={onExit}
+            variant="outline"
+            className="h-[56px] w-[164px] rounded-[100px] border-[3px] border-(--btn_color,#4F7EDE) bg-white px-8 py-4 text-[20px] font-bold text-(--btn_color,#4F7EDE) shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] hover:bg-[#F5F7FF] transition-colors"
+          >
+            {exitLabel}
+          </Button>
+          <Button
+            type="button"
+            onClick={onReady}
+            disabled={isCurrentUserReady}
+            className="h-[56px] w-[164px] rounded-[100px] bg-(--btn_color,#4F7EDE) px-8 py-4 text-[20px] font-bold text-white shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] hover:bg-[#3F6FD6] transition-colors disabled:bg-[#D9D9D9] disabled:text-[#462C05] disabled:shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] disabled:cursor-not-allowed"
+          >
+            {readyLabel}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
