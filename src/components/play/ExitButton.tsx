@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import {
   AlertDialog,
@@ -11,15 +12,14 @@ import ExitModal from '@/components/play/ExitModal'
 
 export default function ExitButton() {
   const [open, setOpen] = useState(false)
+  const router = useRouter()
 
   const handleExit = () => {
-    console.log('退出しました')
+    router.push('/')
     setOpen(false)
   }
 
-  const handleCancel = () => {
-    setOpen(false)
-  }
+  const handleCancel = () => setOpen(false)
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -42,6 +42,7 @@ export default function ExitButton() {
           退出
         </Button>
       </AlertDialogTrigger>
+
       <AlertDialogContent className="w-[92vw] sm:max-w-[520px]">
         <ExitModal onCancel={handleCancel} onConfirm={handleExit} />
       </AlertDialogContent>
